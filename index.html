@@ -1,11 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio Base de Datos</title>
+  <meta charset="UTF-8">
+  <title>Mi Portafolio</title>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h1>hola mundo!</h1>
+
+  <!-- NAVBAR -->
+  <header>
+    <div class="logo">Javier Cuba</div>
+    <nav>
+      <a href="#trabajos">Trabajos</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Bienvenido a mi portafolio 🚀</h1>
+    <p>Aquí podrás ver mis proyectos</p>
+    <button onclick="scrollToTrabajos()">Ver trabajos</button>
+  </section>
+
+  <!-- TRABAJOS -->
+  <section id="trabajos" class="trabajos">
+    <h2>Mis Trabajos</h2>
+
+    <div class="grid">
+
+      <div class="card">
+        <h3>Proyecto 1</h3>
+        <p>Descripción breve</p>
+        <button onclick="verProyecto()">Ver</button>
+      </div>
+
+      <div class="card">
+        <h3>Proyecto 2</h3>
+        <p>Descripción breve</p>
+        <button onclick="verProyecto()">Ver</button>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
