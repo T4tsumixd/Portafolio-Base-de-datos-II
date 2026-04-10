@@ -3,46 +3,105 @@
 <head>
   <meta charset="UTF-8">
   <title>Mi Portafolio</title>
+
+  <!-- BOOTSTRAP -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <header>
-    <div class="logo">Javier Cuba</div>
-    <nav>
-      <a href="#trabajos">Trabajos</a>
-    </nav>
-  </header>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">Javier Cuba</a>
 
-  <!-- HERO -->
-  <section class="hero">
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+      ☰
+    </button>
+
+    <div class="collapse navbar-collapse" id="menu">
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link" href="#inicio">Inicio</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#sobre-mi">Sobre mí</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#trabajos">Ver trabajos</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="login.html">Iniciar sesión</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- INICIO -->
+<section id="inicio" class="hero text-center text-white d-flex align-items-center">
+  <div class="container">
     <h1>Bienvenido a mi portafolio 🚀</h1>
-    <p>Aquí podrás ver mis proyectos</p>
-    <button onclick="scrollToTrabajos()">Ver trabajos</button>
-  </section>
+    <p>Desarrollador web en progreso</p>
+    <a href="#trabajos" class="btn btn-light">Ver trabajos</a>
+  </div>
+</section>
 
-  <!-- TRABAJOS -->
-  <section id="trabajos" class="trabajos">
-    <h2>Mis Trabajos</h2>
+<!-- SOBRE MI -->
+<section id="sobre-mi" class="container my-5">
+  <div class="p-4 rounded fondo-sobre-mi">
 
-    <div class="grid">
-
-      <div class="card">
-        <h3>Proyecto 1</h3>
-        <p>Descripción breve</p>
-        <button onclick="verProyecto()">Ver</button>
+    <div class="row align-items-center">
+      
+      <div class="col-md-4 text-center">
+        <img src="img/foto.jpg" class="img-fluid rounded-circle" alt="foto">
       </div>
 
-      <div class="card">
-        <h3>Proyecto 2</h3>
-        <p>Descripción breve</p>
-        <button onclick="verProyecto()">Ver</button>
+      <div class="col-md-8">
+        <h2>Sobre mí</h2>
+        <p>
+          Hola mi nombre es Javier Amilcar Cuba Villanueva soy un estudiantes de la Universidad Peruana Los Andes este es mi portafolio virtual sobre el curso base de datos II espero les gusto :3.
+        </p>
       </div>
 
     </div>
-  </section>
 
-  <script src="js/script.js"></script>
+  </div>
+</section>
+
+<!-- TRABAJOS -->
+<section id="trabajos" class="container my-5">
+  <h2 class="text-center mb-4">Mis trabajos</h2>
+
+  <div class="row">
+
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h5>Proyecto 1</h5>
+        <p>Descripción breve</p>
+        <button class="btn btn-primary" onclick="verProyecto()">Ver</button>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h5>Proyecto 2</h5>
+        <p>Descripción breve</p>
+        <button class="btn btn-primary" onclick="verProyecto()">Ver</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
