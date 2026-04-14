@@ -16,7 +16,7 @@
   <div class="container">
 
     <!-- Muestra el nombre del usuario si está logueado, sino "Javier Cuba" -->
-    <a class="navbar-brand" href="#" id="navbar-nombre">Javier Cuba</a>
+    <a class="navbar-brand" href="#" id="navbar-nombre">Bienvenido<h6>Facultad de Ingeniería</h5></a>
 
     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
       ☰
@@ -40,9 +40,6 @@
         <!-- Botón dinámico: muestra Login o Cerrar sesión según el estado -->
         <li class="nav-item" id="nav-auth">
           <a class="nav-link nav-link-white" href="login.html" id="btn-auth">Iniciar sesión</a>
-        </li>
-        <li class="nav-item">
-          <button id="btn-logout" class="btn btn-danger ms-2" style="display:none;">Cerrar sesión</button>
         </li>
       </ul>
     </div>
@@ -70,25 +67,15 @@
         <h2>Sobre mí</h2>
         <p>
           Hola mi nombre es Javier Amilcar Cuba Villanueva soy un estudiantes de la Universidad Peruana Los Andes,
-          este es mi portafolio virtual sobre el curso base de datos II en donde recopilare todos mis trabajos
-          de estas 16 semanas que dura el ciclo espero les gusto :3.
+          de la facultad de ingeniería este es mi portafolio virtual sobre el curso base de datos II en donde recopilare
+          todos mis trabajos de estas 16 semanas que dura el ciclo espero les gusto :3.
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<div id="panel-admin" style="display:none; margin-top:20px;">
-  <h4>Agregar nuevo trabajo</h4>
-
-  <input type="text" id="titulo-trabajo" class="form-control my-2" placeholder="Título">
-  <input type="text" id="desc-trabajo" class="form-control my-2" placeholder="Descripción">
-  <input type="text" id="link-trabajo" class="form-control my-2" placeholder="Link del proyecto">
-
-  <button class="btn btn-success" onclick="agregarTrabajo()">Agregar</button>
-</div>
-
-<script src="js/script.js"></script>
+<script src="js/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
