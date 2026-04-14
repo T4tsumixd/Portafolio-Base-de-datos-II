@@ -10,7 +10,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
   <div class="container">
 
-    <a class="navbar-brand" href="index.html" id="navbar-nombre">Javier Cuba</a>
+    <a class="navbar-brand" href="index.html" id="navbar-nombre">Bienvenido</a>
 
     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
       ☰
@@ -41,43 +41,95 @@
 </nav>
 <body>
 
-<div class="container my-5">
-<section id="trabajos" class="container my-5">
+<<div class="container my-5">
+
+  <div class="container my-5">
+    <section id="trabajos" class="container my-5">
     <div class="header-trabajos text-center text-white">
         <h1>Mis Trabajos</h1>
     </div>
+  <div class="unidad">
+  <h3>Unidad 1</h3>
 
-  <div class="row">
-    <div class="col-md-4">
-      <div class="card p-3">
-        <h5>Semana 1</h5>
-        <p>Informe técnico comparativo sobre arquitecturas </p>
-        <a href="archivos/BasedeDatosTarea1.pdf" target="_blank" class="btn btn-primary">Ver Informe</a>
-      </div>
-    </div>
+  <div class="row" id="unidad-1">
 
+    <!-- SEMANA 1 (manual) -->
     <div class="col-md-4">
-      <div class="card p-3">
-        <h5>Semana 2</h5>
-        <p>Aun no existe trabajo.....</p>
-        <button class="btn btn-primary" onclick="verProyecto()">Ver Trabajo</button>
-      </div>
+  <div class="card p-3 semana-card">
+
+    <!-- BOTÓN ELIMINAR (arriba derecha) -->
+    <span class="btn-eliminar" onclick="eliminarSemana(this)">🗑</span>
+
+    <h5>Semana 1</h5>
+    <p>Informe técnico comparativo sobre arquitecturas</p>
+
+    <a href="archivos/ResumenDeArchivo.pdf" target="_blank" class="btn btn-primary mb-2">
+      Ver resumen
+    </a>
+
+    <!-- BOTÓN VER MÁS -->
+    <button class="btn btn-outline-primary btn-sm" onclick="verMas(this)">
+      Ver más trabajos
+    </button>
+
+    <!-- CONTENEDOR OCULTO -->
+    <div class="extra-trabajos mt-2" style="display:none;">
+      <a href="archivos/repositorios.pdf" target="_blank" class="btn btn-secondary btn-sm mb-1">
+        Ver repositorios
+      </a>
+
+      <a href="archivos/BasedeDatosTarea1.pdf" target="_blank" class="btn btn-secondary btn-sm">
+        Ver Informe
+      </a>
     </div>
 
   </div>
-</section>
+</div>
+
+  </div>
+</div>
+  <!-- UNIDAD 2 -->
+  <div class="unidad">
+    <h3>Unidad 2</h3>
+    <div class="row" id="unidad-2"></div>
+  </div>
+
+  <!-- UNIDAD 3 -->
+  <div class="unidad">
+    <h3>Unidad 3</h3>
+    <div class="row" id="unidad-3"></div>
+  </div>
+
+  <!-- UNIDAD 4 -->
+  <div class="unidad">
+    <h3>Unidad 4</h3>
+    <div class="row" id="unidad-4"></div>
+  </div>
+
+</div>
   <!-- BOTON ADMIN -->
   <div id="panel-admin" style="display:none;">
-    <input type="text" id="titulo-trabajo" class="form-control my-2" placeholder="Título">
-    <input type="text" id="desc-trabajo" class="form-control my-2" placeholder="Descripción">
-    <input type="text" id="link-trabajo" class="form-control my-2" placeholder="Link">
-    <button class="btn btn-success" onclick="agregarTrabajo()">Agregar</button>
-  </div>
 
-  <div class="row" id="contenedor-trabajos"></div>
+  <input type="text" id="titulo-trabajo" class="form-control my-2" placeholder="Título">
+  <select id="unidad" class="form-control my-2">
+  <option value="1">Unidad 1</option>
+  <option value="2">Unidad 2</option>
+  <option value="3">Unidad 3</option>
+  <option value="4">Unidad 4</option>
+</select>
+
+  <input type="file" id="archivo" class="form-control my-2">
+
+  <button class="btn btn-success" onclick="agregarTrabajo()">Agregar</button>
 
 </div>
 
-<script src="js/script.js"></script>
+<script src="js/scripts.js"></script>
 </body>
+<div id="modal" class="modal-custom">
+  <div class="modal-content">
+    <span onclick="cerrarModal()" class="cerrar">&times;</span>
+    <iframe id="visor" width="100%" height="400px"></iframe>
+  </div>
+</div>
 </html>
