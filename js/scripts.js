@@ -34,43 +34,53 @@ window.addEventListener('DOMContentLoaded', function () {
 
 function agregarTrabajo() {
   const titulo = document.getElementById("titulo-trabajo").value;
-  const desc = document.getElementById("desc-trabajo").value;
-  const link = document.getElementById("link-trabajo").value;
+  const unidad = document.getElementById("unidad").value;
+  const archivo = document.getElementById("archivo").files[0];
 
-  if (!titulo || !desc || !link) {
-    alert("Completa todos los campos");
+  if (!archivo) {
+    alert("Sube un archivo");
     return;
   }
 
-  const trabajos = JSON.parse(localStorage.getItem("trabajos")) || [];
+  const reader = new FileReader();
 
-  trabajos.push({ titulo, desc, link });
+  reader.onload = function(e) {
+    const trabajos = JSON.parse(localStorage.getItem("trabajos")) || [];
 
-  localStorage.setItem("trabajos", JSON.stringify(trabajos));
+    trabajos.push({
+      titulo,
+      unidad,
+      archivo: e.target.result
+    });
 
-  location.reload();
+    localStorage.setItem("trabajos", JSON.stringify(trabajos));
+    location.reload();
+  };
+
+  reader.readAsDataURL(archivo);
 }
-function cargarTrabajos() {
-  const contenedor = document.getElementById("contenedor-trabajos");
-  if (!contenedor) return;
 
+function cargarTrabajos() {
   const trabajos = JSON.parse(localStorage.getItem("trabajos")) || [];
 
-  contenedor.innerHTML = "";
+  trabajos.forEach(t => {
+    const contenedor = document.getElementById(`unidad-${t.unidad}`);
 
-  trabajos.forEach(trabajo => {
-    const div = document.createElement("div");
-    div.className = "col-md-4 mb-4";
+    if (contenedor) {
+      const div = document.createElement("div");
+      div.className = "col-md-4 mb-4";
 
-    div.innerHTML = `
-      <div class="card p-3">
-        <h5>${trabajo.titulo}</h5>
-        <p>${trabajo.desc}</p>
-        <a href="${trabajo.link}" target="_blank" class="btn btn-primary">Ver</a>
-      </div>
-    `;
+      div.innerHTML = `
+        <div class="card p-3">
+          <h5>${t.titulo}</h5>
+          <button class="btn btn-primary" onclick="abrirModal('${t.archivo}')">
+            Ver
+          </button>
+        </div>
+      `;
 
-    contenedor.appendChild(div);
+      contenedor.appendChild(div);
+    }
   });
 }
 
@@ -86,6 +96,10 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 const usuarioActivo = localStorage.getItem('usuarioActivo');
 
+window.addEventListener("DOMContentLoaded", () => {
+  cargarTrabajos();
+});
+
 if (usuarioActivo) {
   document.getElementById("btn-logout").style.display = "inline-block";
 
@@ -93,4 +107,39 @@ if (usuarioActivo) {
     localStorage.removeItem("usuarioActivo");
     window.location.reload();
   });
+}
+
+function abrirModal(archivo) {
+  document.getElementById("modal").style.display = "block";
+  document.getElementById("visor").src = archivo;
+}
+
+function cerrarModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+window.addEventListener("scroll", () => {
+  document.querySelectorAll(".animar").forEach(el => {
+    const top = el.getBoundingClientRect().top;
+    if (top < window.innerHeight - 50) {
+      el.classList.add("visible");
+    }
+  });
+});
+
+function verMas(btn) {
+  const contenedor = btn.nextElementSibling;
+
+  if (contenedor.style.display === "none") {
+    contenedor.style.display = "block";
+    btn.textContent = "Ver menos";
+  } else {
+    contenedor.style.display = "none";
+    btn.textContent = "Ver más trabajos";
+  }
+}
+
+function eliminarSemana(btn) {
+  const card = btn.closest(".col-md-4");
+  card.remove();
 }
