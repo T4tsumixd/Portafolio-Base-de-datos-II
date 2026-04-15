@@ -32,50 +32,65 @@ window.addEventListener('DOMContentLoaded', function () {
   cargarTrabajos();
 });
 
-function agregarTrabajo() {
-  const titulo = document.getElementById("titulo-trabajo").value;
-  const unidad = document.getElementById("unidad").value;
-  const archivo = document.getElementById("archivo").files[0];
+function agregarSemana() {
+  const titulo = document.getElementById("titulo-semana").value;
+  const descripcion = document.getElementById("descripcion-semana").value;
+  const archivo = document.getElementById("archivo-semana").files[0];
+  const unidad = document.getElementById("unidad-semana").value;
 
-  if (!archivo) {
-    alert("Sube un archivo");
+  if (!titulo || !descripcion || !archivo) {
+    alert("Completa todos los campos");
     return;
   }
 
   const reader = new FileReader();
 
   reader.onload = function(e) {
-    const trabajos = JSON.parse(localStorage.getItem("trabajos")) || [];
+    const semanas = JSON.parse(localStorage.getItem("semanas")) || [];
 
-    trabajos.push({
+    semanas.push({
       titulo,
-      unidad,
-      archivo: e.target.result
+      descripcion,
+      archivo: e.target.result,
+      unidad
     });
 
-    localStorage.setItem("trabajos", JSON.stringify(trabajos));
+    localStorage.setItem("semanas", JSON.stringify(semanas));
+
     location.reload();
   };
 
   reader.readAsDataURL(archivo);
 }
 
-function cargarTrabajos() {
-  const trabajos = JSON.parse(localStorage.getItem("trabajos")) || [];
+function cargarSemanas() {
+  const semanas = JSON.parse(localStorage.getItem("semanas")) || [];
 
-  trabajos.forEach(t => {
-    const contenedor = document.getElementById(`unidad-${t.unidad}`);
+  semanas.forEach(s => {
+    const contenedor = document.getElementById(`unidad-${s.unidad}`);
 
     if (contenedor) {
       const div = document.createElement("div");
-      div.className = "col-md-4 mb-4";
+      div.className = "col-md-4";
 
       div.innerHTML = `
-        <div class="card p-3">
-          <h5>${t.titulo}</h5>
-          <button class="btn btn-primary" onclick="abrirModal('${t.archivo}')">
-            Ver
+        <div class="card p-3 semana-card">
+
+          <span class="btn-eliminar" onclick="eliminarSemana(this)">🗑</span>
+
+          <h5>${s.titulo}</h5>
+          <p>${s.descripcion}</p>
+
+          <a href="${s.archivo}" target="_blank" class="btn btn-primary mb-2">
+            Ver Informe
+          </a>
+
+          <button class="btn btn-outline-primary btn-sm" onclick="verMas(this)">
+            Ver más trabajos
           </button>
+
+          <div class="extra-trabajos mt-2" style="display:none;"></div>
+
         </div>
       `;
 
@@ -97,7 +112,7 @@ window.addEventListener("DOMContentLoaded", () => {
 const usuarioActivo = localStorage.getItem('usuarioActivo');
 
 window.addEventListener("DOMContentLoaded", () => {
-  cargarTrabajos();
+  cargarSemanas();
 });
 
 if (usuarioActivo) {
