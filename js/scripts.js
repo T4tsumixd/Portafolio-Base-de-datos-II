@@ -8,129 +8,154 @@ function verProyecto() {
   alert("Aquí puedes poner el link de tu proyecto");
 }
 
-// Al cargar la página, revisa si hay un usuario en sesión
-window.addEventListener('DOMContentLoaded', function () {
-  const usuarioActivo = localStorage.getItem('usuarioActivo');
+window.agregarSemana = function() {
 
-  if (usuarioActivo) {
-    document.getElementById('navbar-nombre').textContent = '👤 ' + usuarioActivo;
-
-    const btnAuth = document.getElementById('btn-auth');
-    btnAuth.textContent = 'Cerrar sesión';
-    btnAuth.href = '#';
-    btnAuth.addEventListener('click', function (e) {
-      e.preventDefault();
-      localStorage.removeItem('usuarioActivo');
-      window.location.reload();
-    });
-
-    // 🔥 MOSTRAR PANEL ADMIN
-    document.getElementById("panel-admin").style.display = "block";
-  }
-
-  // 🔥 CARGAR TRABAJOS SIEMPRE
-  cargarTrabajos();
-});
-
-function agregarSemana() {
-  const titulo = document.getElementById("titulo-semana").value;
-  const descripcion = document.getElementById("descripcion-semana").value;
-  const archivo = document.getElementById("archivo-semana").files[0];
+  const titulo = document.getElementById("titulo-semana").value.trim();
+  const descripcion = document.getElementById("descripcion-semana").value.trim();
+  const archivoInput = document.getElementById("archivo-semana");
   const unidad = document.getElementById("unidad-semana").value;
 
-  if (!titulo || !descripcion || !archivo) {
-    alert("Completa todos los campos");
+  if (!titulo || !descripcion || archivoInput.files.length === 0) {
+    alert("Completa todo");
     return;
   }
 
-  const reader = new FileReader();
+  const archivo = archivoInput.files[0];
 
-  reader.onload = function(e) {
-    const semanas = JSON.parse(localStorage.getItem("semanas")) || [];
+  let semanas = JSON.parse(localStorage.getItem("semanas")) || [];
 
-    semanas.push({
-      titulo,
-      descripcion,
-      archivo: e.target.result,
-      unidad
+  semanas.push({
+    titulo,
+    descripcion,
+    unidad,
+    trabajos: [
+      {
+        nombre: archivo.name,
+        archivo: "archivos/" + archivo.name
+      }
+    ]
+  });
+
+  localStorage.setItem("semanas", JSON.stringify(semanas));
+  location.reload();
+}
+
+document.getElementById("btn-agregar")?.addEventListener("click", () => {
+  console.log("CLICK DETECTADO");
+  agregarSemana();
+});
+
+function cargarSemanas() {
+  
+  const semanas = JSON.parse(localStorage.getItem("semanas")) || [];
+  const usuario = localStorage.getItem("usuarioActivo");
+
+  semanas.forEach((s, index) => {
+
+    const contenedor = document.getElementById(`unidad-${s.unidad}`);
+
+    let trabajosHTML = "";
+
+    (s.trabajos || []).forEach(t => {
+  trabajosHTML += `
+    <a href="${t.archivo}" target="_blank" class="btn btn-secondary btn-sm mb-1">
+      ${t.nombre}
+    </a>
+  `;
+});
+
+    const div = document.createElement("div");
+    div.className = "col-md-4 mb-4";
+
+    div.innerHTML = `
+      <div class="card p-3 semana-card">
+
+        ${usuario === "admin" ? `
+          <span class="btn-eliminar" onclick="eliminarSemana(${index})">🗑</span>
+          <span class="btn-editar" onclick="abrirEditar(${index})">✏️</span>
+          <span class="btn-agregar-trabajo" onclick="agregarTrabajoExtra(${index})">➕</span>
+        ` : ""}
+
+        <h5>${s.titulo}</h5>
+        <p>${s.descripcion}</p>
+
+        ${trabajosHTML}
+
+      </div>
+    `;
+
+    contenedor.appendChild(div);
+  });
+}
+
+function agregarTrabajoExtra(index) {
+  const archivoInput = document.createElement("input");
+  archivoInput.type = "file";
+
+  archivoInput.onchange = function() {
+    const archivo = archivoInput.files[0];
+
+    let semanas = JSON.parse(localStorage.getItem("semanas")) || [];
+
+    semanas[index].trabajos.push({
+      nombre: archivo.name,
+      archivo: "archivos/" + archivo.name
     });
 
     localStorage.setItem("semanas", JSON.stringify(semanas));
-
     location.reload();
   };
 
-  reader.readAsDataURL(archivo);
-}
-
-function cargarSemanas() {
-  const semanas = JSON.parse(localStorage.getItem("semanas")) || [];
-
-  semanas.forEach(s => {
-    const contenedor = document.getElementById(`unidad-${s.unidad}`);
-
-    if (contenedor) {
-      const div = document.createElement("div");
-      div.className = "col-md-4";
-
-      div.innerHTML = `
-        <div class="card p-3 semana-card">
-
-          <span class="btn-eliminar" onclick="eliminarSemana(this)">🗑</span>
-
-          <h5>${s.titulo}</h5>
-          <p>${s.descripcion}</p>
-
-          <a href="${s.archivo}" target="_blank" class="btn btn-primary mb-2">
-            Ver Informe
-          </a>
-
-          <button class="btn btn-outline-primary btn-sm" onclick="verMas(this)">
-            Ver más trabajos
-          </button>
-
-          <div class="extra-trabajos mt-2" style="display:none;"></div>
-
-        </div>
-      `;
-
-      contenedor.appendChild(div);
-    }
-  });
+  archivoInput.click();
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-  const usuario = localStorage.getItem("usuarioActivo");
 
+  const usuario = localStorage.getItem("usuarioActivo");
+  const panel = document.getElementById("panel-admin");
+
+  // 👤 Mostrar nombre en navbar
   if (usuario) {
-    const panel = document.getElementById("panel-admin");
-    if (panel) panel.style.display = "block";
+    const nombre = document.getElementById('navbar-nombre');
+    if (nombre) nombre.textContent = '👤 ' + usuario;
+
+    const btnAuth = document.getElementById('btn-auth');
+    if (btnAuth) {
+      btnAuth.textContent = 'Cerrar sesión';
+      btnAuth.href = '#';
+
+      btnAuth.addEventListener('click', function (e) {
+        e.preventDefault();
+        localStorage.removeItem('usuarioActivo');
+        window.location.reload();
+      });
+    }
   }
 
-  cargarTrabajos();
-});
-const usuarioActivo = localStorage.getItem('usuarioActivo');
+  // 🔐 SOLO ADMIN VE EL PANEL
+  if (usuario === "admin") {
+    if (panel) panel.style.display = "block";
+  } else {
+    if (panel) panel.style.display = "none";
+  }
 
-window.addEventListener("DOMContentLoaded", () => {
+  // 📦 CARGAR DATOS
   cargarSemanas();
 });
 
+const usuarioActivo = localStorage.getItem("usuarioActivo");
+
 if (usuarioActivo) {
-  document.getElementById("btn-logout").style.display = "inline-block";
+  const btnLogout = document.getElementById("btn-logout");
 
-  document.getElementById("btn-logout").addEventListener("click", () => {
-    localStorage.removeItem("usuarioActivo");
-    window.location.reload();
-  });
-}
+  if (btnLogout) {
+    btnLogout.style.display = "inline-block";
 
-function abrirModal(archivo) {
-  document.getElementById("modal").style.display = "block";
-  document.getElementById("visor").src = archivo;
-}
-
-function cerrarModal() {
-  document.getElementById("modal").style.display = "none";
+    btnLogout.addEventListener("click", () => {
+      localStorage.removeItem("usuarioActivo");
+      window.location.reload();
+    });
+  }
 }
 
 window.addEventListener("scroll", () => {
@@ -154,7 +179,55 @@ function verMas(btn) {
   }
 }
 
-function eliminarSemana(btn) {
-  const card = btn.closest(".col-md-4");
-  card.remove();
+function eliminarSemana(index) {
+
+  const semanas = JSON.parse(localStorage.getItem("semanas")) || [];
+
+  semanas.splice(index, 1);
+
+  localStorage.setItem("semanas", JSON.stringify(semanas));
+
+  location.reload();
+}
+
+let indexEditando = null;
+
+function abrirEditar(index) {
+  const semanas = JSON.parse(localStorage.getItem("semanas")) || [];
+  const semana = semanas[index];
+
+  indexEditando = index;
+
+  document.getElementById("edit-titulo").value = semana.titulo;
+  document.getElementById("edit-descripcion").value = semana.descripcion;
+
+  document.getElementById("modal-editar").style.display = "block";
+}
+
+function cerrarEditar() {
+  document.getElementById("modal-editar").style.display = "none";
+}
+
+function guardarEdicion() {
+  let semanas = JSON.parse(localStorage.getItem("semanas")) || [];
+
+  const nuevoTitulo = document.getElementById("edit-titulo").value;
+  const nuevaDesc = document.getElementById("edit-descripcion").value;
+  const archivoInput = document.getElementById("edit-archivo");
+
+  semanas[indexEditando].titulo = nuevoTitulo;
+  semanas[indexEditando].descripcion = nuevaDesc;
+
+  if (archivoInput.files.length > 0) {
+    const archivo = archivoInput.files[0];
+
+    // reemplaza el primer trabajo
+    semanas[indexEditando].trabajos[0] = {
+      nombre: archivo.name,
+      archivo: "archivos/" + archivo.name
+    };
+  }
+
+  localStorage.setItem("semanas", JSON.stringify(semanas));
+  location.reload();
 }
