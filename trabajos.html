@@ -108,27 +108,45 @@
 
 </div>
   <!-- BOTON ADMIN -->
-  <input type="text" id="titulo-semana" class="form-control my-2" placeholder="Semana (ej: Semana 2)">
+<div id="panel-admin" class="container my-4" style="display:none;">
 
-<input type="text" id="descripcion-semana" class="form-control my-2" placeholder="Descripción breve">
+  <div class="card p-4 shadow">
 
-<input type="file" id="archivo-semana" class="form-control my-2">
+    <h4 class="mb-3">Panel Administrador</h4>
 
-<select id="unidad-semana" class="form-control my-2">
-  <option value="1">Unidad 1</option>
-  <option value="2">Unidad 2</option>
-  <option value="3">Unidad 3</option>
-  <option value="4">Unidad 4</option>
-</select>
+    <!-- TÍTULO -->
+    <input type="text" id="titulo-semana" class="form-control my-2" placeholder="Ej: Semana 2">
 
-<button class="btn btn-success" onclick="agregarSemana()">Agregar Semana</button>
+    <!-- DESCRIPCIÓN -->
+    <input type="text" id="descripcion-semana" class="form-control my-2" placeholder="Descripción breve">
 
-<script src="js/scripts.js"></script>
-</body>
-<div id="modal" class="modal-custom">
-  <div class="modal-content">
-    <span onclick="cerrarModal()" class="cerrar">&times;</span>
-    <iframe id="visor" width="100%" height="400px"></iframe>
+    <!-- ARCHIVO -->
+    <input type="file" id="archivo-semana" class="form-control my-2">
+
+    <!-- UNIDAD -->
+    <select id="unidad-semana" class="form-control my-2">
+      <option value="1">Unidad 1</option>
+      <option value="2">Unidad 2</option>
+      <option value="3">Unidad 3</option>
+      <option value="4">Unidad 4</option>
+    </select>
+
+    <!-- BOTÓN -->
+    <button id="btn-agregar" type="button" class="btn btn-success mt-2">
+      Agregar Semana
+    </button>
   </div>
 </div>
+  <script src="js/scripts.js"></script>
+</body>
+  <div id="modal-editar" class="modal-custom">
+    <div class="modal-content">
+      <span class="cerrar" onclick="cerrarEditar()">&times;</span>
+      <h4>Editar Semana</h4>
+      <input type="text" id="edit-titulo" class="form-control my-2">
+      <input type="text" id="edit-descripcion" class="form-control my-2">
+      <input type="file" id="edit-archivo" class="form-control my-2">
+      <button class="btn btn-success" onclick="guardarEdicion()">Guardar</button>
+    </div>
+  </div>
 </html>
