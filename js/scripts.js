@@ -1,3 +1,8 @@
+var supabase = window.supabase.createClient(
+  "https://ruqcwexjzkyxaoazvxws.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1cWN3ZXhqemt5eGFvYXp2eHdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4MTA2NDIsImV4cCI6MjA5MjM4NjY0Mn0.Be3n-r7qRCUr1iuvFC1rA-triJIaFAKDUIlMEbUpChI"
+);
+
 function scrollToTrabajos() {
   document.getElementById("trabajos").scrollIntoView({
     behavior: "smooth"
@@ -8,12 +13,12 @@ function verProyecto() {
   alert("Aquí puedes poner el link de tu proyecto");
 }
 
-window.agregarSemana = function() {
+window.agregarSemana = async function() {
 
-  const titulo = document.getElementById("titulo-semana").value.trim();
-  const descripcion = document.getElementById("descripcion-semana").value.trim();
-  const archivoInput = document.getElementById("archivo-semana");
+  const titulo = document.getElementById("titulo-semana").value;
+  const descripcion = document.getElementById("descripcion-semana").value;
   const unidad = document.getElementById("unidad-semana").value;
+  const archivoInput = document.getElementById("archivo-semana");
 
   if (!titulo || !descripcion || archivoInput.files.length === 0) {
     alert("Completa todo");
@@ -22,9 +27,7 @@ window.agregarSemana = function() {
 
   const archivo = archivoInput.files[0];
 
-  let semanas = JSON.parse(localStorage.getItem("semanas")) || [];
-
-  semanas.push({
+  const nuevaSemana = {
     titulo,
     descripcion,
     unidad,
@@ -34,35 +37,47 @@ window.agregarSemana = function() {
         archivo: "archivos/" + archivo.name
       }
     ]
-  });
+  };
 
-  localStorage.setItem("semanas", JSON.stringify(semanas));
-  location.reload();
+  const { error } = await supabase
+    .from("semanas")
+    .insert([nuevaSemana]);
+
+  if (error) {
+    console.error(error);
+    alert("Error al guardar");
+  } else {
+    alert("Guardado en la nube ☁️");
+    location.reload();
+  }
 }
 
-document.getElementById("btn-agregar")?.addEventListener("click", () => {
-  console.log("CLICK DETECTADO");
-  agregarSemana();
-});
+async function cargarSemanas() {
 
-function cargarSemanas() {
-  
-  const semanas = JSON.parse(localStorage.getItem("semanas")) || [];
+  const { data, error } = await supabase
+    .from("semanas")
+    .select("*");
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
   const usuario = localStorage.getItem("usuarioActivo");
 
-  semanas.forEach((s, index) => {
+  data.forEach((s, index) => {
 
     const contenedor = document.getElementById(`unidad-${s.unidad}`);
 
     let trabajosHTML = "";
 
     (s.trabajos || []).forEach(t => {
-  trabajosHTML += `
-    <a href="${t.archivo}" target="_blank" class="btn btn-secondary btn-sm mb-1">
-      ${t.nombre}
-    </a>
-  `;
-});
+      trabajosHTML += `
+        <a href="${t.archivo}" target="_blank" class="btn btn-secondary btn-sm mb-1">
+          ${t.nombre}
+        </a>
+      `;
+    });
 
     const div = document.createElement("div");
     div.className = "col-md-4 mb-4";
@@ -71,9 +86,7 @@ function cargarSemanas() {
       <div class="card p-3 semana-card">
 
         ${usuario === "admin" ? `
-          <span class="btn-eliminar" onclick="eliminarSemana(${index})">🗑</span>
-          <span class="btn-editar" onclick="abrirEditar(${index})">✏️</span>
-          <span class="btn-agregar-trabajo" onclick="agregarTrabajoExtra(${index})">➕</span>
+          <span class="btn-eliminar" onclick="eliminarSemana('${s.id}')">🗑</span>
         ` : ""}
 
         <h5>${s.titulo}</h5>
@@ -88,22 +101,47 @@ function cargarSemanas() {
   });
 }
 
-function agregarTrabajoExtra(index) {
+async function agregarTrabajoExtra(id) {
+
   const archivoInput = document.createElement("input");
   archivoInput.type = "file";
 
-  archivoInput.onchange = function() {
+  archivoInput.onchange = async function() {
+
     const archivo = archivoInput.files[0];
 
-    let semanas = JSON.parse(localStorage.getItem("semanas")) || [];
+    // 🔍 obtener semana actual desde Supabase
+    const { data, error } = await supabase
+      .from("semanas")
+      .select("trabajos")
+      .eq("id", id)
+      .single();
 
-    semanas[index].trabajos.push({
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    let trabajos = data.trabajos || [];
+
+    trabajos.push({
       nombre: archivo.name,
       archivo: "archivos/" + archivo.name
     });
 
-    localStorage.setItem("semanas", JSON.stringify(semanas));
-    location.reload();
+    // 🔥 actualizar en Supabase
+    const { error: updateError } = await supabase
+      .from("semanas")
+      .update({ trabajos })
+      .eq("id", id);
+
+    if (updateError) {
+      console.error(updateError);
+      alert("Error al agregar trabajo");
+    } else {
+      alert("Trabajo agregado ✅");
+      location.reload();
+    }
   };
 
   archivoInput.click();
@@ -179,27 +217,37 @@ function verMas(btn) {
   }
 }
 
-function eliminarSemana(index) {
+async function eliminarSemana(id) {
 
-  const semanas = JSON.parse(localStorage.getItem("semanas")) || [];
+  const { error } = await supabase
+    .from("semanas")
+    .delete()
+    .eq("id", id);
 
-  semanas.splice(index, 1);
-
-  localStorage.setItem("semanas", JSON.stringify(semanas));
-
-  location.reload();
+  if (!error) {
+    location.reload();
+  }
 }
 
-let indexEditando = null;
+let idEditando = null;
 
-function abrirEditar(index) {
-  const semanas = JSON.parse(localStorage.getItem("semanas")) || [];
-  const semana = semanas[index];
+async function abrirEditar(id) {
 
-  indexEditando = index;
+  const { data, error } = await supabase
+    .from("semanas")
+    .select("*")
+    .eq("id", id)
+    .single();
 
-  document.getElementById("edit-titulo").value = semana.titulo;
-  document.getElementById("edit-descripcion").value = semana.descripcion;
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  idEditando = id;
+
+  document.getElementById("edit-titulo").value = data.titulo;
+  document.getElementById("edit-descripcion").value = data.descripcion;
 
   document.getElementById("modal-editar").style.display = "block";
 }
@@ -208,26 +256,51 @@ function cerrarEditar() {
   document.getElementById("modal-editar").style.display = "none";
 }
 
-function guardarEdicion() {
-  let semanas = JSON.parse(localStorage.getItem("semanas")) || [];
+async function guardarEdicion() {
 
   const nuevoTitulo = document.getElementById("edit-titulo").value;
   const nuevaDesc = document.getElementById("edit-descripcion").value;
   const archivoInput = document.getElementById("edit-archivo");
 
-  semanas[indexEditando].titulo = nuevoTitulo;
-  semanas[indexEditando].descripcion = nuevaDesc;
+  // 🔍 traer trabajos actuales
+  const { data, error } = await supabase
+    .from("semanas")
+    .select("trabajos")
+    .eq("id", idEditando)
+    .single();
 
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  let trabajos = data.trabajos || [];
+
+  // 🔄 si sube nuevo archivo, reemplaza el primero
   if (archivoInput.files.length > 0) {
     const archivo = archivoInput.files[0];
 
-    // reemplaza el primer trabajo
-    semanas[indexEditando].trabajos[0] = {
+    trabajos[0] = {
       nombre: archivo.name,
       archivo: "archivos/" + archivo.name
     };
   }
 
-  localStorage.setItem("semanas", JSON.stringify(semanas));
-  location.reload();
+  // 🔥 actualizar todo
+  const { error: updateError } = await supabase
+    .from("semanas")
+    .update({
+      titulo: nuevoTitulo,
+      descripcion: nuevaDesc,
+      trabajos: trabajos
+    })
+    .eq("id", idEditando);
+
+  if (updateError) {
+    console.error(updateError);
+    alert("Error al actualizar");
+  } else {
+    alert("Actualizado correctamente ✏️");
+    location.reload();
+  }
 }
