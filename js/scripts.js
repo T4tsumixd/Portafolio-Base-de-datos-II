@@ -94,6 +94,13 @@ async function cargarSemanas() {
 
         ${trabajosHTML}
 
+        ${usuario === "admin" ? `
+          <div class="mt-2 d-flex gap-2">
+            <button class="btn btn-outline-warning btn-sm" onclick="abrirEditar('${s.id}')">✏️ Editar</button>
+            <button class="btn btn-outline-success btn-sm" onclick="agregarTrabajoExtra('${s.id}')">➕ Agregar trabajo</button>
+          </div>
+        ` : ""}
+
       </div>
     `;
 
