@@ -56,7 +56,8 @@ async function cargarSemanas() {
 
   const { data, error } = await supabase
     .from("semanas")
-    .select("*");
+    .select("*")
+    .order("titulo", { ascending: true });
 
   if (error) {
     console.error(error);
@@ -80,7 +81,7 @@ async function cargarSemanas() {
     });
 
     const div = document.createElement("div");
-    div.className = "col-md-3 mb-4";
+    div.className = "col-md-3 mb-3";
 
     div.innerHTML = `
       <div class="card p-3 semana-card">
