@@ -11,6 +11,14 @@ body {
   background: transparent;
 }
 
+.hero {
+  height: 100vh;
+  background-image: url('../img/fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 /* SOBRE MI */
 .fondo-sobre-mi {
   background: rgba(255, 255, 255, 0.12);
