@@ -1,0 +1,636 @@
+/* ═══════════════════════════════════════════════════════════
+   trabajos.css — Estilos exclusivos de trabajos.html
+   Depende de: css/dmc-theme.css (variables y base)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════
+   BASE
+══════════════════════════════ */
+body { cursor: none; }
+
+/* ══════════════════════════════
+   NAVBAR
+══════════════════════════════ */
+.navbar-dmc-trabajos {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 14px 0;
+  background: rgba(0, 0, 0, 0.97);
+  border-bottom: 1px solid rgba(192, 57, 43, 0.35);
+}
+
+.navbar-dmc-trabajos .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+.hero-trabajos {
+  padding: 140px 0 60px;
+  text-align: center;
+  position: relative;
+}
+
+/* Degradado superior */
+.hero-trabajos::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(139, 0, 0, 0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Número romano de fondo */
+.hero-trabajos .numero-decorativo {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(6rem, 15vw, 12rem);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(192, 57, 43, 0.1);
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* Badge superior */
+.hero-trabajos .badge-seccion {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 8px;
+  color: var(--dorado);
+  border-top: 1px solid var(--dorado);
+  border-bottom: 1px solid var(--dorado);
+  padding: 5px 18px;
+  display: inline-block;
+  margin-bottom: 1.2rem;
+}
+
+.hero-trabajos h1 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: var(--blanco);
+  text-shadow: 0 0 60px rgba(192, 57, 43, 0.4);
+}
+
+.hero-trabajos h1 span {
+  color: var(--rojo-vivo);
+}
+
+/* ══════════════════════════════
+   SECCIÓN PRINCIPAL
+══════════════════════════════ */
+.seccion-trabajos {
+  padding: 20px 0 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ══════════════════════════════
+   BLOQUE DE UNIDAD
+══════════════════════════════ */
+.unidad-bloque {
+  margin-bottom: 60px;
+  position: relative;
+}
+
+/* Cabecera de unidad */
+.unidad-header {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(192, 57, 43, 0.2);
+}
+
+.unidad-numero {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 3.5rem;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(192, 57, 43, 0.5);
+  line-height: 1;
+  min-width: 70px;
+}
+
+.unidad-etiqueta {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 7px;
+  color: var(--rojo-vivo);
+  text-transform: uppercase;
+}
+
+.unidad-titulo {
+  font-family: 'Cinzel', serif;
+  font-size: 1.4rem;
+  color: var(--blanco);
+  letter-spacing: 2px;
+}
+
+.unidad-linea {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(192, 57, 43, 0.4), transparent);
+}
+
+.unidad-diamond {
+  width: 8px;
+  height: 8px;
+  background: var(--rojo-vivo);
+  transform: rotate(45deg);
+  box-shadow: 0 0 8px var(--rojo-vivo);
+}
+
+/* ══════════════════════════════
+   GRID DE SEMANAS — 4 columnas
+══════════════════════════════ */
+.semanas-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* ══════════════════════════════
+   CARD DE SEMANA
+══════════════════════════════ */
+.semana-card-dmc {
+  position: relative;
+  background: linear-gradient(160deg, rgba(20, 0, 0, 0.85) 0%, rgba(12, 12, 12, 0.95) 100%);
+  border: 1px solid rgba(192, 57, 43, 0.2);
+  padding: 24px 20px 20px;
+  transition: all 0.35s ease;
+  overflow: hidden;
+  cursor: default;
+}
+
+/* Esquina cortada superior derecha */
+.semana-card-dmc::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 28px 28px 0;
+  border-color: transparent var(--rojo-oscuro) transparent transparent;
+  transition: border-color 0.3s;
+}
+
+/* Línea superior animada al hover */
+.semana-card-dmc::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--rojo-vivo), var(--dorado));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.semana-card-dmc:hover {
+  border-color: rgba(231, 76, 60, 0.45);
+  box-shadow:
+    0 0 30px rgba(139, 0, 0, 0.3),
+    0 12px 40px rgba(0, 0, 0, 0.5);
+  transform: translateY(-5px);
+}
+
+.semana-card-dmc:hover::after  { transform: scaleX(1); }
+.semana-card-dmc:hover::before { border-color: transparent var(--rojo-vivo) transparent transparent; }
+
+/* Número de semana decorativo de fondo */
+.semana-num-bg {
+  position: absolute;
+  bottom: -10px; right: 8px;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 4rem;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(192, 57, 43, 0.07);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.semana-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 6px;
+  color: var(--rojo-vivo);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.semana-titulo {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  color: var(--blanco);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.semana-desc {
+  font-size: 0.85rem;
+  color: rgba(245, 240, 232, 0.6);
+  line-height: 1.5;
+  margin-bottom: 14px;
+  min-height: 40px;
+}
+
+.semana-sep {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(192, 57, 43, 0.3), transparent);
+  margin-bottom: 14px;
+}
+
+/* ── Botones de trabajos dentro de la card ── */
+.semana-trabajos {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.btn-trabajo {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  background: transparent;
+  color: var(--plata);
+  border: 1px solid rgba(192, 57, 43, 0.3);
+  text-decoration: none;
+  transition: all 0.25s;
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  text-align: center;
+  display: block;
+}
+
+.btn-trabajo:hover {
+  background: rgba(192, 57, 43, 0.2);
+  border-color: var(--rojo-vivo);
+  color: var(--blanco);
+  box-shadow: 0 0 12px rgba(192, 57, 43, 0.25);
+}
+
+.btn-trabajo-primary {
+  background: rgba(192, 57, 43, 0.3);
+  color: var(--blanco);
+  border-color: rgba(231, 76, 60, 0.5);
+}
+
+.btn-trabajo-primary:hover {
+  background: var(--rojo-vivo);
+  box-shadow: 0 0 20px rgba(231, 76, 60, 0.4);
+}
+
+/* Botón "ver más" */
+.btn-ver-mas {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  background: transparent;
+  color: var(--dorado);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  cursor: pointer;
+  transition: all 0.25s;
+  margin-top: 4px;
+  width: 100%;
+}
+
+.btn-ver-mas:hover {
+  background: rgba(212, 160, 23, 0.1);
+  border-color: var(--dorado);
+}
+
+/* Contenedor de trabajos extra */
+.extra-trabajos         { display: none; flex-direction: column; gap: 6px; }
+.extra-trabajos.abierto { display: flex; }
+
+/* ── Acciones admin en la card ── */
+.admin-card-acciones {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(192, 57, 43, 0.15);
+}
+
+.btn-admin-mini {
+  font-family: 'Cinzel', serif;
+  font-size: 0.5rem;
+  letter-spacing: 2px;
+  padding: 5px 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  text-align: center;
+}
+
+.btn-admin-editar {
+  background: rgba(212, 160, 23, 0.15);
+  color: var(--dorado);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+}
+.btn-admin-editar:hover { background: rgba(212, 160, 23, 0.3); }
+
+.btn-admin-agregar {
+  background: rgba(0, 180, 80, 0.15);
+  color: #4caf50;
+  border: 1px solid rgba(0, 180, 80, 0.3);
+}
+.btn-admin-agregar:hover { background: rgba(0, 180, 80, 0.3); }
+
+.btn-admin-eliminar {
+  background: rgba(231, 76, 60, 0.15);
+  color: var(--rojo-vivo);
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+.btn-admin-eliminar:hover { background: rgba(231, 76, 60, 0.3); }
+
+/* ══════════════════════════════
+   PANEL ADMIN FLOTANTE
+══════════════════════════════ */
+.panel-admin-dmc {
+  position: fixed;
+  bottom: 30px; right: 30px;
+  z-index: 500;
+  display: none; /* scripts.js lo pone en block si es admin */
+}
+
+/* Botón toggle ⚙ */
+.panel-admin-toggle {
+  width: 56px; height: 56px;
+  background: var(--rojo-vivo);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 0 25px rgba(231, 76, 60, 0.5);
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  transition: all 0.3s;
+  margin-left: auto;
+}
+
+.panel-admin-toggle:hover {
+  box-shadow: 0 0 40px rgba(231, 76, 60, 0.8);
+  transform: scale(1.05);
+}
+
+/* Formulario colapsable */
+.panel-admin-form {
+  background: linear-gradient(160deg, rgba(15, 0, 0, 0.98), rgba(10, 10, 10, 0.99));
+  border: 1px solid rgba(192, 57, 43, 0.4);
+  width: 360px;
+  margin-bottom: 12px;
+  display: none;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Línea superior decorativa */
+.panel-admin-form::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--rojo-vivo), var(--dorado), var(--rojo-vivo));
+}
+
+.panel-form-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid rgba(192, 57, 43, 0.2);
+}
+
+.panel-form-header .eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 0.5rem;
+  letter-spacing: 7px;
+  color: var(--rojo-vivo);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.panel-form-header h4 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1rem;
+  color: var(--blanco);
+  margin: 0;
+}
+
+.panel-form-body {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Inputs estilo DMC ── */
+.input-dmc-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 4px;
+  color: rgba(192, 57, 43, 0.8);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.input-dmc {
+  background: rgba(20, 0, 0, 0.6);
+  border: 1px solid rgba(192, 57, 43, 0.25);
+  color: var(--blanco);
+  padding: 10px 14px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  width: 100%;
+  transition: border-color 0.3s;
+  outline: none;
+}
+
+.input-dmc::placeholder { color: rgba(245, 240, 232, 0.3); }
+.input-dmc:focus        { border-color: var(--rojo-vivo); }
+
+.select-dmc {
+  background: rgba(20, 0, 0, 0.6);
+  border: 1px solid rgba(192, 57, 43, 0.25);
+  color: var(--blanco);
+  padding: 10px 14px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.95rem;
+  width: 100%;
+  outline: none;
+  cursor: pointer;
+}
+
+.select-dmc:focus  { border-color: var(--rojo-vivo); }
+.select-dmc option { background: #1a0000; }
+
+.file-dmc {
+  background: rgba(20, 0, 0, 0.4);
+  border: 1px dashed rgba(192, 57, 43, 0.3);
+  color: rgba(245, 240, 232, 0.5);
+  padding: 10px 14px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+.file-dmc:hover { border-color: var(--rojo-vivo); }
+
+/* Botón submit del panel */
+.btn-admin-submit {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  padding: 12px;
+  background: var(--rojo-vivo);
+  color: var(--blanco);
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-admin-submit::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transition: left 0.4s;
+}
+
+.btn-admin-submit:hover::before { left: 100%; }
+.btn-admin-submit:hover {
+  background: #ff2020;
+  box-shadow: 0 0 25px rgba(231, 76, 60, 0.5);
+}
+
+/* ══════════════════════════════
+   MODAL EDITAR
+══════════════════════════════ */
+.modal-dmc-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-dmc-overlay.abierto { display: flex; }
+
+.modal-dmc-box {
+  background: linear-gradient(160deg, rgba(15, 0, 0, 0.99), rgba(10, 10, 10, 1));
+  border: 1px solid rgba(192, 57, 43, 0.4);
+  width: min(480px, 92vw);
+  position: relative;
+  overflow: hidden;
+  animation: modalEntrada 0.3s ease forwards;
+}
+
+/* Línea superior */
+.modal-dmc-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--rojo-vivo), var(--dorado));
+}
+
+/* Esquina inferior derecha */
+.modal-dmc-box::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 50px; height: 50px;
+  border-bottom: 1px solid rgba(192, 57, 43, 0.3);
+  border-right:  1px solid rgba(192, 57, 43, 0.3);
+}
+
+@keyframes modalEntrada {
+  from { opacity: 0; transform: scale(0.95) translateY(20px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+
+.modal-dmc-header {
+  padding: 24px 28px 18px;
+  border-bottom: 1px solid rgba(192, 57, 43, 0.2);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.modal-dmc-header .eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 0.5rem;
+  letter-spacing: 7px;
+  color: var(--rojo-vivo);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.modal-dmc-header h4 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.1rem;
+  color: var(--blanco);
+  margin: 0;
+}
+
+.modal-dmc-cerrar {
+  background: none;
+  border: 1px solid rgba(192, 57, 43, 0.3);
+  color: var(--rojo-vivo);
+  width: 32px; height: 32px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.modal-dmc-cerrar:hover {
+  background: rgba(192, 57, 43, 0.2);
+  border-color: var(--rojo-vivo);
+}
+
+.modal-dmc-body {
+  padding: 24px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 992px) {
+  .semanas-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 576px) {
+  .semanas-grid          { grid-template-columns: 1fr; }
+  .panel-admin-form      { width: calc(100vw - 60px); }
+  .unidad-numero         { font-size: 2.5rem; }
+  .panel-admin-dmc       { bottom: 16px; right: 16px; }
+}

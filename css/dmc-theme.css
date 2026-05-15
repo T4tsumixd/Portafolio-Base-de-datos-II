@@ -1,0 +1,685 @@
+/* ═══════════════════════════════════════════════════════════
+   dmc-theme.css — Estilos visuales del tema Devil May Cry
+   Importado por: index.html
+   ═══════════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════
+   VARIABLES GLOBALES
+══════════════════════════════ */
+:root {
+  --rojo:        #c0392b;
+  --rojo-vivo:   #e74c3c;
+  --rojo-oscuro: #7b0000;
+  --dorado:      #d4a017;
+  --dorado-claro:#f0c040;
+  --negro:       #0a0a0a;
+  --gris-oscuro: #111111;
+  --gris:        #1c1c1c;
+  --blanco:      #f5f0e8;
+  --plata:       #c0c0c0;
+}
+
+/* ══════════════════════════════
+   RESET Y BASE
+══════════════════════════════ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--negro);
+  color: var(--blanco);
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ══════════════════════════════
+   CURSOR PERSONALIZADO
+══════════════════════════════ */
+.cursor {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--rojo-vivo);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease, background 0.2s;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-trail {
+  width: 6px;
+  height: 6px;
+  background: var(--rojo-vivo);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  opacity: 0.6;
+}
+
+/* ══════════════════════════════
+   CANVAS DE PARTÍCULAS
+══════════════════════════════ */
+#particulas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════
+   NAVBAR
+══════════════════════════════ */
+.navbar-dmc {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 14px 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, transparent 100%);
+  border-bottom: 1px solid rgba(192,57,43,0.3);
+}
+
+.navbar-dmc .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.brand-main {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.1rem;
+  color: var(--rojo-vivo);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.brand-sub {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.7rem;
+  color: var(--dorado);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--plata);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--rojo-vivo);
+  transition: width 0.3s;
+}
+
+.nav-links a:hover { color: var(--rojo-vivo); }
+.nav-links a:hover::after { width: 100%; }
+
+.btn-nav {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  padding: 8px 20px;
+  border: 1px solid var(--rojo-vivo);
+  background: transparent;
+  color: var(--rojo-vivo);
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+
+.btn-nav:hover {
+  background: var(--rojo-vivo);
+  color: var(--blanco);
+}
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 80%, rgba(139,0,0,0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 20% 50%, rgba(100,0,0,0.2) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 80% 50%, rgba(100,0,0,0.2) 0%, transparent 60%),
+    linear-gradient(180deg, #0a0a0a 0%, #1a0000 50%, #0a0a0a 100%);
+}
+
+/* Pentagrama de fondo */
+.pentagram-bg {
+  position: absolute;
+  bottom: -5%; left: 50%;
+  transform: translateX(-50%);
+  width: min(700px, 90vw);
+  opacity: 0.03;
+  animation: pentagramSpin 120s linear infinite;
+  pointer-events: none;
+}
+
+/* Líneas decorativas laterales */
+.deco-line-left,
+.deco-line-right {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--rojo-oscuro), transparent);
+}
+.deco-line-left  { left: 8%; }
+.deco-line-right { right: 8%; }
+
+/* Texto lateral rotado */
+.side-text {
+  position: absolute;
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 8px;
+  color: rgba(192,57,43,0.4);
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+}
+.side-text-left  { left: 3%; top: 50%; transform: translateY(-50%); }
+.side-text-right { right: 3%; top: 50%; transform: translateY(-50%) rotate(180deg); }
+
+/* Número V decorativo */
+.dmc-number {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 10rem;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(192,57,43,0.15);
+  line-height: 1;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+  letter-spacing: -10px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: var(--dorado);
+  border-top: 1px solid var(--dorado);
+  border-bottom: 1px solid var(--dorado);
+  padding: 6px 20px;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.3s forwards;
+}
+
+.hero-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.5s forwards;
+}
+
+.hero-title .line1 {
+  display: block;
+  color: var(--blanco);
+  text-shadow: 0 0 60px rgba(192,57,43,0.5), 0 0 120px rgba(192,57,43,0.2);
+}
+
+.hero-title .line2 {
+  display: block;
+  color: var(--rojo-vivo);
+  text-shadow: 0 0 40px rgba(231,76,60,0.8), 0 0 80px rgba(231,76,60,0.4);
+  -webkit-text-stroke: 1px rgba(231,76,60,0.5);
+}
+
+.hero-subtitle {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--plata);
+  margin: 1.5rem 0 3rem;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.7s forwards;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.9s forwards;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeIn 1s ease 1.5s forwards;
+}
+
+.scroll-indicator span {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 5px;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(180deg, rgba(192,57,43,0.8), transparent);
+  animation: scrollPulse 2s ease infinite;
+}
+
+/* ══════════════════════════════
+   BOTONES DMC
+══════════════════════════════ */
+.btn-dmc-primary {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  padding: 14px 36px;
+  background: var(--rojo-vivo);
+  color: var(--blanco);
+  border: none;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+}
+
+.btn-dmc-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.4s;
+}
+
+.btn-dmc-primary:hover::before { left: 100%; }
+
+.btn-dmc-primary:hover {
+  background: #ff2020;
+  box-shadow: 0 0 30px rgba(231,76,60,0.6), 0 0 60px rgba(231,76,60,0.3);
+  color: var(--blanco);
+}
+
+.btn-dmc-secondary {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  padding: 13px 36px;
+  background: transparent;
+  color: var(--dorado);
+  border: 1px solid var(--dorado);
+  text-decoration: none;
+  transition: all 0.3s;
+  clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+}
+
+.btn-dmc-secondary:hover {
+  background: var(--dorado);
+  color: var(--negro);
+  box-shadow: 0 0 30px rgba(212,160,23,0.5);
+}
+
+/* ══════════════════════════════
+   DIVISOR DECORATIVO
+══════════════════════════════ */
+.divisor {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  gap: 1rem;
+}
+
+.divisor-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rojo-oscuro), transparent);
+}
+
+.divisor-diamond {
+  width: 10px; height: 10px;
+  background: var(--rojo-vivo);
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px var(--rojo-vivo);
+}
+
+.divisor-text {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 8px;
+  color: var(--rojo-oscuro);
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════
+   SECCIÓN SOBRE MÍ
+══════════════════════════════ */
+#sobre-mi {
+  position: relative;
+  z-index: 1;
+  padding: 80px 0;
+}
+
+.section-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  color: var(--rojo-vivo);
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: var(--blanco);
+  margin-bottom: 0;
+  line-height: 1;
+}
+
+.sobre-mi-card {
+  background: linear-gradient(135deg, rgba(20,0,0,0.8) 0%, rgba(15,15,15,0.9) 100%);
+  border: 1px solid rgba(192,57,43,0.25);
+  padding: 50px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.sobre-mi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--rojo-vivo), transparent);
+}
+
+.sobre-mi-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 80px; height: 80px;
+  border-bottom: 2px solid rgba(192,57,43,0.3);
+  border-right:  2px solid rgba(192,57,43,0.3);
+}
+
+.sobre-mi-card:hover {
+  border-color: rgba(231,76,60,0.5);
+  box-shadow: 0 20px 60px rgba(139,0,0,0.3), inset 0 0 60px rgba(139,0,0,0.05);
+  transform: translateY(-4px);
+}
+
+/* Foto de perfil */
+.foto-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.foto-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 1px solid var(--rojo-oscuro);
+  clip-path: polygon(15px 0%, 100% 0%, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0% 100%, 0% 15px);
+}
+
+.foto-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: -16px;
+  border: 1px solid rgba(192,57,43,0.2);
+  clip-path: polygon(20px 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0% 100%, 0% 20px);
+}
+
+.foto-perfil {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  clip-path: polygon(15px 0%, 100% 0%, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0% 100%, 0% 15px);
+  filter: grayscale(20%) contrast(1.1);
+  transition: filter 0.4s;
+}
+
+.foto-wrapper:hover .foto-perfil {
+  filter: grayscale(0%) contrast(1.15) saturate(1.2);
+}
+
+.foto-placeholder {
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(135deg, #1a0000, #2a0a0a);
+  clip-path: polygon(15px 0%, 100% 0%, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0% 100%, 0% 15px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Info de texto */
+.info-nombre {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.6rem;
+  color: var(--blanco);
+  margin-bottom: 0.3rem;
+}
+
+.info-rol {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 6px;
+  color: var(--rojo-vivo);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.info-texto {
+  font-size: 1.05rem;
+  color: rgba(245,240,232,0.75);
+  line-height: 1.8;
+  letter-spacing: 0.5px;
+}
+
+/* Stats */
+.stats-row {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-num {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 2rem;
+  color: var(--rojo-vivo);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 4px;
+  color: var(--plata);
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════
+   EFECTO GLITCH
+══════════════════════════════ */
+.glitch-text {
+  position: relative;
+  display: inline-block;
+  animation: glitch 8s infinite;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+.glitch-text::before {
+  color: var(--rojo-vivo);
+  animation: glitch 8s 0.1s infinite;
+  opacity: 0.7;
+}
+
+.glitch-text::after {
+  color: var(--dorado);
+  animation: glitch 8s 0.2s infinite;
+  opacity: 0.5;
+}
+
+/* ══════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+.footer-dmc {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid rgba(192,57,43,0.2);
+  padding: 40px 0;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.2rem;
+  color: var(--rojo-vivo);
+  letter-spacing: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.footer-text {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 5px;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════
+   KEYFRAMES / ANIMACIONES
+══════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50%       { opacity: 1;   transform: scaleY(1.2); }
+}
+
+@keyframes glitch {
+  0%, 90%, 100% { clip-path: none; transform: none; }
+  92%  { clip-path: inset(20% 0 60% 0); transform: translateX(-4px); }
+  94%  { clip-path: inset(60% 0 20% 0); transform: translateX(4px); }
+  96%  { clip-path: inset(40% 0 40% 0); transform: translateX(-2px); }
+}
+
+@keyframes pentagramSpin {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to   { transform: translateX(-50%) rotate(360deg); }
+}
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hero-title { font-size: 2.2rem; }
+  .dmc-number { font-size: 5rem; }
+  .sobre-mi-card { padding: 30px 20px; }
+  .foto-perfil, .foto-placeholder { width: 150px; height: 150px; }
+  .side-text { display: none; }
+  .deco-line-left, .deco-line-right { display: none; }
+}

@@ -1,0 +1,311 @@
+  /* ══════════════════════════════
+       LAYOUT LOGIN
+    ══════════════════════════════ */
+    body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        cursor: none;
+      }
+  
+      /* Fondo */
+      .login-bg {
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(ellipse 60% 70% at 50% 50%, rgba(100,0,0,0.35) 0%, transparent 65%),
+          radial-gradient(ellipse 80% 40% at 20% 80%, rgba(80,0,0,0.2)  0%, transparent 60%),
+          radial-gradient(ellipse 60% 40% at 80% 20%, rgba(80,0,0,0.2)  0%, transparent 60%),
+          linear-gradient(180deg, #060606 0%, #100000 50%, #060606 100%);
+        z-index: 0;
+      }
+  
+      /* Pentagrama de fondo */
+      .login-pentagram {
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(600px, 90vw);
+        opacity: 0.025;
+        animation: pentagramSpin 90s linear infinite;
+        pointer-events: none;
+        z-index: 0;
+      }
+  
+      /* ══════════════════════════════
+         CARD DE LOGIN
+      ══════════════════════════════ */
+      .login-wrapper {
+        position: relative;
+        z-index: 1;
+        width: min(400px, 92vw);
+        animation: fadeUp 0.7s ease forwards;
+      }
+  
+      .login-card {
+        background: linear-gradient(160deg, rgba(15,0,0,0.97), rgba(8,8,8,0.99));
+        border: 1px solid rgba(192,57,43,0.35);
+        position: relative;
+        overflow: hidden;
+      }
+  
+      /* Línea superior roja→dorada */
+      .login-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--rojo-vivo), var(--dorado), var(--rojo-vivo));
+      }
+  
+      /* Esquina decorativa inferior derecha */
+      .login-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0; right: 0;
+        width: 60px; height: 60px;
+        border-bottom: 1px solid rgba(192,57,43,0.3);
+        border-right:  1px solid rgba(192,57,43,0.3);
+      }
+  
+      /* ── Cabecera ── */
+      .login-header {
+        padding: 36px 36px 24px;
+        border-bottom: 1px solid rgba(192,57,43,0.15);
+        text-align: center;
+      }
+  
+      /* Símbolo DMC pequeño */
+      .login-symbol {
+        width: 48px;
+        margin: 0 auto 16px;
+        opacity: 0.8;
+      }
+  
+      .login-eyebrow {
+        font-family: 'Cinzel', serif;
+        font-size: 0.5rem;
+        letter-spacing: 8px;
+        color: var(--rojo-vivo);
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+  
+      .login-title {
+        font-family: 'Cinzel Decorative', serif;
+        font-size: 1.4rem;
+        color: var(--blanco);
+        margin-bottom: 4px;
+      }
+  
+      .login-subtitle {
+        font-family: 'Cinzel', serif;
+        font-size: 0.55rem;
+        letter-spacing: 4px;
+        color: rgba(245,240,232,0.3);
+        text-transform: uppercase;
+      }
+  
+      /* ── Cuerpo del formulario ── */
+      .login-body {
+        padding: 28px 36px 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+  
+      /* Grupo de input */
+      .input-grupo {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+  
+      .input-label-dmc {
+        font-family: 'Cinzel', serif;
+        font-size: 0.5rem;
+        letter-spacing: 5px;
+        color: rgba(192,57,43,0.7);
+        text-transform: uppercase;
+      }
+  
+      .input-dmc {
+        background: rgba(20,0,0,0.5);
+        border: 1px solid rgba(192,57,43,0.2);
+        border-bottom: 1px solid rgba(192,57,43,0.4);
+        color: var(--blanco);
+        padding: 11px 16px;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1rem;
+        letter-spacing: 1px;
+        width: 100%;
+        outline: none;
+        transition: border-color 0.3s, box-shadow 0.3s;
+      }
+      .input-dmc::placeholder { color: rgba(245,240,232,0.2); }
+      .input-dmc:focus {
+        border-color: var(--rojo-vivo);
+        box-shadow: 0 0 0 1px rgba(231,76,60,0.2), inset 0 0 20px rgba(139,0,0,0.1);
+      }
+  
+      /* ── Botón principal ── */
+      .btn-login-dmc {
+        font-family: 'Cinzel', serif;
+        font-size: 0.7rem;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        padding: 13px;
+        background: var(--rojo-vivo);
+        color: var(--blanco);
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+        margin-top: 4px;
+      }
+      .btn-login-dmc::before {
+        content: '';
+        position: absolute;
+        top: 0; left: -100%;
+        width: 100%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+        transition: left 0.4s;
+      }
+      .btn-login-dmc:hover::before { left: 100%; }
+      .btn-login-dmc:hover {
+        background: #ff2020;
+        box-shadow: 0 0 30px rgba(231,76,60,0.5);
+      }
+  
+      /* ── Botón secundario (Registrarse) ── */
+      .btn-registro-dmc {
+        font-family: 'Cinzel', serif;
+        font-size: 0.65rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        padding: 11px;
+        background: transparent;
+        color: rgba(245,240,232,0.5);
+        border: 1px solid rgba(192,57,43,0.2);
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.3s;
+        clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+      }
+      .btn-registro-dmc:hover {
+        border-color: rgba(192,57,43,0.5);
+        color: var(--blanco);
+        background: rgba(192,57,43,0.08);
+      }
+  
+      /* ── Separador ── */
+      .login-sep {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .login-sep-line {
+        flex: 1;
+        height: 1px;
+        background: rgba(192,57,43,0.15);
+      }
+      .login-sep-text {
+        font-family: 'Cinzel', serif;
+        font-size: 0.5rem;
+        letter-spacing: 4px;
+        color: rgba(245,240,232,0.2);
+        text-transform: uppercase;
+      }
+  
+      /* ── Mensajes de estado ── */
+      .mensaje-error {
+        font-family: 'Cinzel', serif;
+        font-size: 0.6rem;
+        letter-spacing: 3px;
+        color: var(--rojo-vivo);
+        text-transform: uppercase;
+        text-align: center;
+        display: none;
+        padding: 8px 12px;
+        border: 1px solid rgba(231,76,60,0.3);
+        background: rgba(139,0,0,0.15);
+      }
+      .mensaje-exito {
+        font-family: 'Cinzel', serif;
+        font-size: 0.6rem;
+        letter-spacing: 3px;
+        color: #4caf50;
+        text-transform: uppercase;
+        text-align: center;
+        display: none;
+        padding: 8px 12px;
+        border: 1px solid rgba(76,175,80,0.3);
+        background: rgba(0,100,30,0.15);
+      }
+  
+      /* ── Panel de registro ── */
+      #panel-registro { display: none; }
+  
+      .registro-header {
+        font-family: 'Cinzel', serif;
+        font-size: 0.55rem;
+        letter-spacing: 6px;
+        color: var(--dorado);
+        text-transform: uppercase;
+        text-align: center;
+        padding: 14px 0 10px;
+        border-top: 1px solid rgba(192,57,43,0.15);
+      }
+  
+      /* Volver link */
+      .link-volver {
+        font-family: 'Cinzel', serif;
+        font-size: 0.55rem;
+        letter-spacing: 4px;
+        color: rgba(245,240,232,0.3);
+        text-align: center;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: color 0.3s;
+        text-decoration: none;
+        display: block;
+      }
+      .link-volver:hover { color: var(--rojo-vivo); }
+  
+      /* Footer de la card */
+      .login-footer {
+        padding: 0 36px 20px;
+        text-align: center;
+      }
+  
+      /* ══════════════════════════════
+         BOTÓN VOLVER AL PORTAFOLIO
+      ══════════════════════════════ */
+      .btn-volver-portafolio {
+        position: fixed;
+        top: 24px; left: 24px;
+        z-index: 10;
+        font-family: 'Cinzel', serif;
+        font-size: 0.55rem;
+        letter-spacing: 4px;
+        color: rgba(245,240,232,0.4);
+        text-decoration: none;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: color 0.3s;
+      }
+      .btn-volver-portafolio::before {
+        content: '←';
+        font-size: 0.9rem;
+      }
+      .btn-volver-portafolio:hover {
+        color: var(--rojo-vivo);
+      }

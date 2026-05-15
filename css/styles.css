@@ -1,257 +1,242 @@
+/* ═══════════════════════════════════════════════
+   styles.css — Devil May Cry Portfolio Theme
+   Mantiene los estilos de trabajos.html y demás páginas
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --rojo: #c0392b;
+  --rojo-vivo: #e74c3c;
+  --rojo-oscuro: #7b0000;
+  --dorado: #d4a017;
+  --negro: #0a0a0a;
+  --gris-oscuro: #111111;
+  --gris: #1c1c1c;
+  --blanco: #f5f0e8;
+  --plata: #c0c0c0;
+}
+
+/* ══════════════ BASE ══════════════ */
 body {
-  background: linear-gradient(270deg, #1e3c72, #2a5298, #00b4db);
-  background-size: 600% 600%;
-  animation: fondoAnimado 10s ease infinite;
+  background-color: var(--negro);
+  color: var(--blanco);
+  font-family: 'Rajdhani', 'Segoe UI', sans-serif;
   min-height: 100vh;
 }
 
-/* HERO */
-.hero {
-  height: 100vh;
-  background: transparent;
-}
-
-.hero {
-  height: 100vh;
-  background-image: url('../img/fondo.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* SOBRE MI */
-.fondo-sobre-mi {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 15px;
-  padding: 30px;
-  color: white;
+/* ══════════════ CARDS (trabajos.html) ══════════════ */
+.card {
+  background: rgba(20, 0, 0, 0.7);
+  border: 1px solid rgba(192,57,43,0.2);
+  border-radius: 0;
+  color: var(--blanco);
   transition: all 0.3s ease;
 }
-
-.fondo-sobre-mi:hover {
+.card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 15px 40px rgba(139,0,0,0.35);
+  border-color: rgba(231,76,60,0.4);
 }
 
-/* IMAGEN */
-img {
-  max-width: 200px;
-}
-
-.logo-inicio {
-  width: 120px;
-  margin-bottom: 20px;
-  animation: entradaZoom 0.9s ease forwards;
-  opacity: 0;
-}
-
-.logo-inicio:hover {
-  transform: scale(1.1);
-}
-
-.hero h1 {
-  animation: entradaZoom 0.9s ease 0.3s forwards;
-  opacity: 0;
-}
-
-.hero p {
-  animation: entradaZoom 0.9s ease 0.55s forwards;
-  opacity: 0;
-}
-
-.hero .btn {
-  animation: entradaZoom 0.9s ease 0.8s forwards;
-  opacity: 0;
-}
-
-@keyframes entradaZoom {
-  from {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-/* NAVBAR - letras blancas y visibles */
-.nav-link-white {
-  color: #ffffff !important;
-  font-weight: 500;
-}
-
-.nav-link-white:hover {
-  color: #d0e8ff !important;
-}
-.card {
-  transition: all 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
-}
-
-/* HEADER TRABAJOS */
+/* ══════════════ HEADER TRABAJOS ══════════════ */
 .header-trabajos {
-  background: linear-gradient(135deg, #1e3c72, #2a5298, #00b4db);
+  background: linear-gradient(135deg, #0a0000 0%, #1a0505 50%, #0a0000 100%);
+  border: 1px solid rgba(192,57,43,0.3);
   padding: 40px 20px;
-  border-radius: 10px;
+  border-radius: 0;
   margin-bottom: 30px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
 }
-
-/* TITULO */
+.header-trabajos::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--rojo-vivo), transparent);
+}
 .header-trabajos h1 {
-  font-weight: bold;
-  letter-spacing: 1px;
+  font-family: 'Cinzel Decorative', serif;
+  color: var(--blanco);
+  font-weight: 900;
+  letter-spacing: 2px;
 }
 
-.card {
-  border: none;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
-}
-
-/* BOTONES */
+/* ══════════════ BOTONES ══════════════ */
 .btn-primary {
-  background: linear-gradient(45deg, #1e90ff, #00bfff);
+  background: var(--rojo-vivo);
   border: none;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  transition: all 0.3s;
 }
-
 .btn-primary:hover {
-  background: linear-gradient(45deg, #187bcd, #009acd);
+  background: #ff2020;
+  box-shadow: 0 0 20px rgba(231,76,60,0.5);
+}
+.btn-light {
+  background: transparent;
+  border: 1px solid var(--dorado);
+  color: var(--dorado);
+  font-family: 'Cinzel', serif;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  transition: all 0.3s;
+}
+.btn-light:hover {
+  background: var(--dorado);
+  color: var(--negro);
 }
 
-
-
-/* ANIMACIÓN */
-@keyframes fondoAnimado {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@media (max-width: 768px) {
-  .logo-inicio {
-    width: 80px;
-  }
-}
-
+/* ══════════════ UNIDADES ══════════════ */
 .unidad {
-  border: 2px solid #1e90ff;
-  border-radius: 15px;
+  border: 1px solid rgba(192,57,43,0.3);
+  border-radius: 0;
   padding: 20px;
   margin-bottom: 30px;
-  background: rgba(255,255,255,0.9);
+  background: rgba(15,0,0,0.6);
+  position: relative;
+  transition: box-shadow 0.3s;
 }
-
+.unidad::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(192,57,43,0.5), transparent);
+}
 .unidad h3 {
+  font-family: 'Cinzel', serif;
+  color: var(--rojo-vivo);
   margin-bottom: 15px;
-  color: #1e3c72;
+  letter-spacing: 2px;
 }
-/* cosas de trabajo html */
+.unidad:hover {
+  box-shadow: 0 10px 30px rgba(139,0,0,0.25);
+}
 
-/* botón eliminar */
+/* ══════════════ SEMANAS ══════════════ */
 .semana-card {
   position: relative;
-  border-radius: 12px;
+  border-radius: 0;
+  background: rgba(20,5,5,0.8);
+  border: 1px solid rgba(192,57,43,0.15);
 }
-
-.btn-eliminar {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  cursor: pointer;
-  font-size: 18px;
-  color: #dc3545;
-  transition: transform 0.2s;
-}
-
-/* hover bonito */
-.btn-eliminar:hover {
-  transform: scale(1.2);
-}
-
-/*Boton editar */
-.btn-editar {
-  position: absolute;
-  top: 10px;
-  right: 40px; /* al lado del eliminar */
-  cursor: pointer;
-  font-size: 18px;
-  color: #0d6efd;
-}
-
-.btn-editar:hover {
-  transform: scale(1.2);
-}
-
-.btn-agregar-trabajo {
-  position: absolute;
-  top: 10px;
-  right: 70px;
-  cursor: pointer;
-  color: green;
-  font-size: 18px;
-}
-
-.unidad:hover {
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
 .semana {
-  background: white;
-  border-radius: 10px;
+  background: rgba(10,0,0,0.5);
+  border-radius: 0;
   padding: 10px;
   margin-bottom: 10px;
   min-height: 150px;
 }
 
+/* ══════════════ BOTONES SEMANA ══════════════ */
+.btn-eliminar {
+  position: absolute;
+  top: 10px; right: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--rojo-vivo);
+  transition: transform 0.2s;
+}
+.btn-eliminar:hover { transform: scale(1.2); }
+
+.btn-editar {
+  position: absolute;
+  top: 10px; right: 40px;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--dorado);
+}
+.btn-editar:hover { transform: scale(1.2); }
+
+.btn-agregar-trabajo {
+  position: absolute;
+  top: 10px; right: 70px;
+  cursor: pointer;
+  color: #00c853;
+  font-size: 18px;
+}
+
+/* ══════════════ MODAL ══════════════ */
 .modal-custom {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.7);
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85);
+  z-index: 2000;
 }
-
 .modal-content {
-  background: white;
+  background: #120000;
+  border: 1px solid rgba(192,57,43,0.4);
   margin: 10% auto;
-  padding: 20px;
+  padding: 30px;
   width: 70%;
-  border-radius: 10px;
+  border-radius: 0;
+  position: relative;
 }
-
+.modal-content::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--rojo-vivo);
+}
 .cerrar {
   cursor: pointer;
   float: right;
   font-size: 25px;
+  color: var(--rojo-vivo);
 }
 
+/* ══════════════ ANIMACIONES ══════════════ */
 .animar {
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.6s;
 }
-
 .animar.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ══════════════ SCROLLBAR ══════════════ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--negro); }
+::-webkit-scrollbar-thumb {
+  background: var(--rojo-oscuro);
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--rojo-vivo); }
+
+/* ══════════════ SELECCIÓN ══════════════ */
+::selection {
+  background: var(--rojo-oscuro);
+  color: var(--blanco);
+}
+
+/* ══════════════ LINKS ══════════════ */
+a { color: var(--rojo-vivo); }
+a:hover { color: var(--dorado); }
+
+/* ══════════════ INPUTS ══════════════ */
+input, textarea, select {
+  background: rgba(20,0,0,0.8) !important;
+  border: 1px solid rgba(192,57,43,0.3) !important;
+  color: var(--blanco) !important;
+  border-radius: 0 !important;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--rojo-vivo) !important;
+  box-shadow: 0 0 0 2px rgba(231,76,60,0.2) !important;
+  outline: none;
+}
+
+/* ══════════════ RESPONSIVE ══════════════ */
+@media (max-width: 768px) {
+  .modal-content { width: 92%; }
+  .header-trabajos { padding: 25px 15px; }
 }
