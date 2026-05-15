@@ -81,7 +81,7 @@ async function cargarSemanas() {
     });
 
     const div = document.createElement("div");
-    div.className = "col-md-3 mb-3";
+    div.className = "col-md-4 mb-4";
 
     div.innerHTML = `
       <div class="card p-3 semana-card">
