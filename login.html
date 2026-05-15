@@ -2,65 +2,161 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso — Javier Cuba</title>
+
+  <!-- Bootstrap (solo utilidades) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background: linear-gradient(135deg, #1e90ff, #00bfff);
-    }
-    .card-login {
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-    }
-    .mensaje-error {
-      color: #dc3545;
-      font-size: 14px;
-      text-align: center;
-      display: none;
-      margin-top: 8px;
-    }
-    .mensaje-exito {
-      color: #198754;
-      font-size: 14px;
-      text-align: center;
-      display: none;
-      margin-top: 8px;
-    }
-  </style>
+
+  <!-- Fuentes DMC -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tema DMC base -->
+  <link rel="stylesheet" href="css/dmc-theme.css">
+  <link rel="stylesheet" href="css/login.css">
 </head>
+<body>
 
-<body class="d-flex justify-content-center align-items-center vh-100">
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
+  <canvas id="particulas"></canvas>
 
-  <div class="card card-login p-4" style="width: 340px;">
-    <h3 class="text-center mb-1">Iniciar sesión</h3>
-    <p class="text-center text-muted" style="font-size: 13px;">Portafolio de Javier Cuba</p>
+  <!-- Fondo -->
+  <div class="login-bg"></div>
 
-    <input type="text" id="input-usuario" class="form-control my-2" placeholder="Usuario">
-    <input type="password" id="input-password" class="form-control my-2" placeholder="Contraseña">
+  <!-- Pentagrama -->
+  <svg class="login-pentagram" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <polygon points="250,10 310,190 490,190 345,295 400,480 250,370 100,480 155,295 10,190 190,190"
+             fill="none" stroke="#c0392b" stroke-width="2"/>
+    <circle cx="250" cy="250" r="240" fill="none" stroke="#c0392b" stroke-width="1"/>
+    <circle cx="250" cy="250" r="180" fill="none" stroke="#c0392b" stroke-width="0.5"/>
+    <polygon points="250,10 310,190 490,190 345,295 400,480 250,370 100,480 155,295 10,190 190,190"
+             fill="none" stroke="#d4a017" stroke-width="0.5" transform="rotate(36 250 250)"/>
+  </svg>
 
-    <div class="mensaje-error" id="msg-error"></div>
-    <div class="mensaje-exito" id="msg-exito">¡Bienvenido! Redirigiendo...</div>
+  <!-- Volver al portafolio -->
+  <a href="index.html" class="btn-volver-portafolio">Volver al portafolio</a>
 
-    <button class="btn btn-primary w-100 mt-3" onclick="iniciarSesion()">Entrar</button>
+  <!-- ══════════════════════════════════════════
+       CARD DE LOGIN
+  ═════════════════════════════════════════ -->
+  <div class="login-wrapper">
+    <div class="login-card">
 
-    <hr>
+      <!-- Cabecera -->
+      <div class="login-header">
+        <!-- Símbolo SVG estilo DMC -->
+        <svg class="login-symbol" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <polygon points="24,2 30,18 46,18 33,28 38,44 24,34 10,44 15,28 2,18 18,18"
+                   fill="none" stroke="#c0392b" stroke-width="1.5"/>
+          <circle cx="24" cy="24" r="22" fill="none" stroke="rgba(192,57,43,0.3)" stroke-width="0.8"/>
+          <circle cx="24" cy="24" r="4" fill="#c0392b" opacity="0.6"/>
+        </svg>
 
-    <p class="text-center text-muted mb-1" style="font-size: 12px;">¿No tienes cuenta?</p>
-    <button class="btn btn-outline-secondary w-100" onclick="mostrarRegistro()">Registrarse</button>
+        <div class="login-eyebrow">// Identificación</div>
+        <div class="login-title">Iniciar Sesión</div>
+        <div class="login-subtitle">Portafolio de Javier Cuba</div>
+      </div>
 
-    <div id="panel-registro" style="display:none; margin-top: 16px;">
-      <hr>
-      <p class="text-center" style="font-size: 13px; font-weight: 500;">Crear cuenta nueva</p>
-      <input type="text" id="reg-usuario" class="form-control my-2" placeholder="Nuevo usuario">
-      <input type="password" id="reg-password" class="form-control my-2" placeholder="Nueva contraseña">
-      <div class="mensaje-error" id="msg-reg-error"></div>
-      <div class="mensaje-exito" id="msg-reg-exito"></div>
-      <button class="btn btn-success w-100 mt-2" onclick="registrarUsuario()">Crear cuenta</button>
+      <!-- Formulario login -->
+      <div class="login-body">
+
+        <div class="input-grupo">
+          <label class="input-label-dmc" for="input-usuario">Usuario</label>
+          <input type="text" id="input-usuario" class="input-dmc" placeholder="Tu nombre de usuario">
+        </div>
+
+        <div class="input-grupo">
+          <label class="input-label-dmc" for="input-password">Contraseña</label>
+          <input type="password" id="input-password" class="input-dmc" placeholder="••••••••">
+        </div>
+
+        <div class="mensaje-error" id="msg-error"></div>
+        <div class="mensaje-exito" id="msg-exito">✔ Bienvenido — Redirigiendo...</div>
+
+        <button class="btn-login-dmc" onclick="iniciarSesion()">
+          ⚔ Entrar
+        </button>
+
+        <div class="login-sep">
+          <div class="login-sep-line"></div>
+          <span class="login-sep-text">o</span>
+          <div class="login-sep-line"></div>
+        </div>
+
+        <button class="btn-registro-dmc" onclick="mostrarRegistro()">
+          Crear cuenta
+        </button>
+
+      </div>
+
+      <!-- Panel registro (oculto por defecto) -->
+      <div id="panel-registro">
+        <div class="login-body" style="padding-top: 0; gap: 12px;">
+
+          <div class="registro-header">// Nueva cuenta</div>
+
+          <div class="input-grupo">
+            <label class="input-label-dmc" for="reg-usuario">Nuevo usuario</label>
+            <input type="text" id="reg-usuario" class="input-dmc" placeholder="Elige un nombre">
+          </div>
+
+          <div class="input-grupo">
+            <label class="input-label-dmc" for="reg-password">Nueva contraseña</label>
+            <input type="password" id="reg-password" class="input-dmc" placeholder="••••••••">
+          </div>
+
+          <div class="mensaje-error" id="msg-reg-error"></div>
+          <div class="mensaje-exito" id="msg-reg-exito"></div>
+
+          <button class="btn-login-dmc" style="background:rgba(0,120,60,0.8);" onclick="registrarUsuario()">
+            ✔ Crear cuenta
+          </button>
+
+          <a class="link-volver" onclick="ocultarRegistro()">← Volver al login</a>
+
+        </div>
+      </div>
+
+    </div><!-- /login-card -->
+
+    <!-- Footer -->
+    <div class="login-footer" style="padding-top:14px;">
+      <div style="font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:4px; color:rgba(245,240,232,0.15); text-transform:uppercase;">
+        Universidad Peruana Los Andes &nbsp;·&nbsp; 2024
+      </div>
     </div>
-  </div>
 
+  </div><!-- /login-wrapper -->
+
+  <!-- ══════════════════════════════════════════
+       SCRIPTS
+  ═════════════════════════════════════════ -->
   <script src="js/login.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/particles.js"></script>
+
+  <script>
+    /* Ocultar panel registro */
+    function ocultarRegistro() {
+      document.getElementById('panel-registro').style.display = 'none';
+    }
+
+    /* mostrarRegistro ya viene de login.js — solo nos aseguramos de que el panel sea visible */
+    const _mostrarRegistro = window.mostrarRegistro;
+    if (typeof _mostrarRegistro === 'function') {
+      window.mostrarRegistro = function() {
+        _mostrarRegistro();
+        /* login.js ya hace el display:block, solo lo dejamos correr */
+      };
+    } else {
+      /* Fallback si login.js no define la función aún */
+      window.mostrarRegistro = function() {
+        document.getElementById('panel-registro').style.display = 'block';
+      };
+    }
+  </script>
 
 </body>
 </html>

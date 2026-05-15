@@ -2,81 +2,205 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Mi Portafolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portafolio — Javier Cuba</title>
 
-  <!-- BOOTSTRAP -->
+  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
+  <!-- Fuentes DMC -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/dmc-theme.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-  <div class="container">
+  <!-- ══════════ CURSOR PERSONALIZADO ══════════ -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
 
-    <!-- Muestra el nombre del usuario si está logueado, sino "Javier Cuba" -->
-    <a class="navbar-brand" href="#" id="navbar-nombre">Bienvenido<h6>Facultad de Ingeniería</h5></a>
+  <!-- ══════════ PARTÍCULAS DE FUEGO ══════════ -->
+  <canvas id="particulas"></canvas>
 
-    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
-      ☰
-    </button>
+  <!-- ════════════════════════════════════════
+       NAVBAR
+  ════════════════════════════════════════ -->
+  <nav class="navbar-dmc">
+    <div class="container">
 
-    <div class="collapse navbar-collapse" id="menu">
-      <ul class="navbar-nav ms-auto">
+      <a class="brand" href="#">
+        <span class="brand-main">Javier Cuba</span>
+        <span class="brand-sub">Facultad de Ingeniería</span>
+      </a>
 
-        <li class="nav-item">
-          <a class="nav-link nav-link-white" href="#inicio">Inicio</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link nav-link-white" href="#sobre-mi">Sobre mí</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link nav-link-white" href="trabajos.html">Ver trabajos</a>
-        </li>
-
-        <!-- Botón dinámico: muestra Login o Cerrar sesión según el estado -->
-        <li class="nav-item" id="nav-auth">
-          <a class="nav-link nav-link-white" href="login.html" id="btn-auth">Iniciar sesión</a>
-        </li>
+      <ul class="nav-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="trabajos.html">Trabajos</a></li>
       </ul>
+
+      <a href="login.html" class="btn-nav" id="btn-auth">Iniciar sesión</a>
+
     </div>
-  </div>
-</nav>
+  </nav>
 
-<!-- INICIO -->
-<section id="inicio" class="hero text-center text-white d-flex align-items-center">
-  <div class="container">
-    <img src="img/logo.png" class="logo-inicio" alt="logo">
-    <h1>Bienvenido a mi portafolio 📁</h1>
-    <p>portafolio de base de datos :3</p>
-    <a href="trabajos.html" class="btn btn-light">Ver trabajos</a>
-  </div>
-</section>
+  <!-- ════════════════════════════════════════
+       HERO — SECCIÓN PRINCIPAL
+  ════════════════════════════════════════ -->
+  <section id="inicio" class="hero">
 
-<!-- SOBRE MI -->
-<section id="sobre-mi" class="container my-5">
-  <div class="p-4 rounded fondo-sobre-mi">
-    <div class="row align-items-center">      
-      <div class="col-md-4 text-center">
-        <img src="img/yo.png" class="img-fluid rounded-circle" alt="foto">
-      </div>
-      <div class="col-md-8">
-        <h2>Sobre mí</h2>
-        <p>
-          Hola mi nombre es Javier Amilcar Cuba Villanueva soy un estudiantes de la Universidad Peruana Los Andes,
-          de la facultad de ingeniería este es mi portafolio virtual sobre el curso base de datos II en donde recopilare
-          todos mis trabajos de estas 16 semanas que dura el ciclo espero les gusto :3.
-        </p>
+    <div class="hero-bg"></div>
+
+    <svg class="pentagram-bg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <polygon points="250,10 310,190 490,190 345,295 400,480 250,370 100,480 155,295 10,190 190,190"
+               fill="none" stroke="#c0392b" stroke-width="2"/>
+      <circle cx="250" cy="250" r="240" fill="none" stroke="#c0392b" stroke-width="1"/>
+      <circle cx="250" cy="250" r="200" fill="none" stroke="#c0392b" stroke-width="0.5"/>
+      <polygon points="250,10 310,190 490,190 345,295 400,480 250,370 100,480 155,295 10,190 190,190"
+               fill="none" stroke="#d4a017" stroke-width="0.5" transform="rotate(36 250 250)"/>
+    </svg>
+
+    <div class="deco-line-left"  aria-hidden="true"></div>
+    <div class="deco-line-right" aria-hidden="true"></div>
+    <span class="side-text side-text-left"  aria-hidden="true">Portafolio — Base de Datos II — UPLA</span>
+    <span class="side-text side-text-right" aria-hidden="true">Ingeniería — 2024 — Ciclo XVI</span>
+
+    <div class="dmc-number" aria-hidden="true">V</div>
+
+    <div class="hero-content">
+      <div class="hero-badge">⚔ Portafolio Académico ⚔</div>
+
+      <h1 class="hero-title">
+        <span class="line1 glitch-text" data-text="Bienvenido">Bienvenido</span>
+        <span class="line2">al Portafolio</span>
+      </h1>
+
+      <p class="hero-subtitle">Base de Datos II &nbsp;·&nbsp; UPLA &nbsp;·&nbsp; 16 Semanas</p>
+
+      <div class="hero-buttons">
+        <a href="trabajos.html" class="btn-dmc-primary">Ver Trabajos</a>
+        <a href="#sobre-mi"    class="btn-dmc-secondary">Sobre mí</a>
       </div>
     </div>
-  </div>
-</section>
 
-<script src="js/scripts.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="scroll-indicator" aria-hidden="true">
+      <span>Descender</span>
+      <div class="scroll-line"></div>
+    </div>
+
+  </section>
+
+  <!-- ════════════════════════════════════════
+       DIVISOR
+  ════════════════════════════════════════ -->
+  <div class="divisor container" aria-hidden="true">
+    <div class="divisor-line"></div>
+    <div class="divisor-diamond"></div>
+    <span class="divisor-text">Dante Must Die</span>
+    <div class="divisor-diamond"></div>
+    <div class="divisor-line"></div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       SOBRE MÍ
+  ════════════════════════════════════════ -->
+  <section id="sobre-mi">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">// Identificación del operativo</p>
+        <h2 class="section-title">
+          Sobre <span style="color:var(--rojo-vivo)">Mí</span>
+        </h2>
+      </div>
+
+      <div class="sobre-mi-card mt-4 reveal">
+        <div class="row align-items-center g-5">
+
+          <div class="col-md-4 text-center">
+            <div class="foto-wrapper">
+              <img
+                src="img/yo.jpeg"
+                class="foto-perfil"
+                alt="Foto de Javier Cuba"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="foto-placeholder" style="display:none;">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+                  <circle cx="40" cy="30" r="18" stroke="#c0392b" stroke-width="1.5"/>
+                  <path d="M10 72 Q40 50 70 72" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+                  <line x1="40" y1="0" x2="40" y2="80" stroke="rgba(192,57,43,0.2)" stroke-width="0.5"/>
+                  <line x1="0"  y1="40" x2="80" y2="40" stroke="rgba(192,57,43,0.2)" stroke-width="0.5"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-8">
+            <p class="info-rol">Estudiante · Ingeniero en Formación</p>
+            <h3 class="info-nombre">Javier Amilcar<br>Cuba Villanueva</h3>
+
+            <p class="info-texto mt-3">
+              Hola, soy estudiante de la
+              <strong style="color:var(--dorado)">Universidad Peruana Los Andes</strong>,
+              Facultad de Ingeniería. Este es mi portafolio virtual del curso
+              <strong style="color:var(--rojo-vivo)">Base de Datos II</strong>, donde recopilo todos
+              mis trabajos de estas 16 semanas que dura el ciclo.
+              Cada semana es una nueva misión completada. ¡Espero que les guste!
+            </p>
+
+            <div class="stats-row">
+              <div class="stat-item">
+                <div class="stat-num">16</div>
+                <div class="stat-label">Semanas</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-num">BD</div>
+                <div class="stat-label">II Ciclo</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-num">∞</div>
+                <div class="stat-label">Determinación</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       DIVISOR FINAL
+  ════════════════════════════════════════ -->
+  <div class="divisor container" style="margin-top:60px" aria-hidden="true">
+    <div class="divisor-line"></div>
+    <div class="divisor-diamond"></div>
+    <span class="divisor-text">Fin de la transmisión</span>
+    <div class="divisor-diamond"></div>
+    <div class="divisor-line"></div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════ -->
+  <footer class="footer-dmc">
+    <div class="footer-logo">JC Portafolio</div>
+    <p class="footer-text">
+      Universidad Peruana Los Andes &nbsp;·&nbsp; Base de Datos II &nbsp;·&nbsp; 2024
+    </p>
+  </footer>
+
+  <!-- ════════════════════════════════════════
+       SCRIPTS — Orden: Bootstrap → scripts.js → efectos DMC
+  ════════════════════════════════════════ -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/scripts.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/scroll-reveal.js"></script>
 
 </body>
 </html>

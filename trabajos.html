@@ -2,111 +2,216 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Trabajos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trabajos — Javier Cuba</title>
+
+  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Fuentes DMC -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/dmc-theme.css">
+  <link rel="stylesheet" href="css/trabajos.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-  <div class="container">
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
+  <canvas id="particulas"></canvas>
 
-    <a class="navbar-brand" href="index.html" id="navbar-nombre">Bienvenido</a>
+  <!-- ════════════════════════════════════════
+       NAVBAR
+  ════════════════════════════════════════ -->
+  <nav class="navbar-dmc-trabajos">
+    <div class="container">
 
-    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
-      ☰
-    </button>
+      <a class="brand" href="index.html">
+        <span class="brand-main">Javier Cuba</span>
+        <span class="brand-sub">Facultad de Ingeniería</span>
+      </a>
 
-    <div class="collapse navbar-collapse" id="menu">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link nav-link-white" href="index.html">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-link-white" href="index.html#sobre-mi">Sobre mí</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-link-white" href="trabajos.html">Ver trabajos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-link-white" href="login.html" id="btn-auth">Iniciar sesión</a>
-        </li>
+      <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="index.html#sobre-mi">Sobre mí</a></li>
+        <li><a href="trabajos.html" style="color:var(--rojo-vivo)">Trabajos</a></li>
       </ul>
+
+      <a href="login.html" class="btn-nav" id="btn-auth">Iniciar sesión</a>
+
+    </div>
+  </nav>
+
+  <!-- ════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════ -->
+  <div class="hero-trabajos">
+    <div class="numero-decorativo" aria-hidden="true">IV</div>
+    <div class="container" style="position:relative; z-index:1;">
+      <div class="badge-seccion">⚔ Registro de Misiones ⚔</div>
+      <h1>Mis <span>Trabajos</span></h1>
+      <p style="font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:5px; color:rgba(245,240,232,0.4); margin-top:10px; text-transform:uppercase;">
+        Base de Datos II &nbsp;·&nbsp; 16 Semanas &nbsp;·&nbsp; UPLA
+      </p>
     </div>
   </div>
-</nav>
 
-<div class="container my-5 pt-5">
-  <section id="trabajos">
+  <!-- ════════════════════════════════════════
+       SECCIÓN DE TRABAJOS
+  ════════════════════════════════════════ -->
+  <div class="seccion-trabajos">
+    <div class="container" id="trabajos">
 
-    <div class="header-trabajos text-center text-white mb-4">
-      <h1>Mis Trabajos</h1>
+      <!-- UNIDAD 1 -->
+      <div class="unidad-bloque">
+        <div class="unidad-header">
+          <div class="unidad-numero">I</div>
+          <div class="unidad-info">
+            <div class="unidad-etiqueta">// Unidad</div>
+            <div class="unidad-titulo">Unidad 1</div>
+          </div>
+          <div class="unidad-linea"></div>
+          <div class="unidad-diamond" aria-hidden="true"></div>
+        </div>
+        <div class="semanas-grid" id="unidad-1"></div>
+      </div>
+
+      <!-- UNIDAD 2 -->
+      <div class="unidad-bloque">
+        <div class="unidad-header">
+          <div class="unidad-numero">II</div>
+          <div class="unidad-info">
+            <div class="unidad-etiqueta">// Unidad</div>
+            <div class="unidad-titulo">Unidad 2</div>
+          </div>
+          <div class="unidad-linea"></div>
+          <div class="unidad-diamond" aria-hidden="true"></div>
+        </div>
+        <div class="semanas-grid" id="unidad-2"></div>
+      </div>
+
+      <!-- UNIDAD 3 -->
+      <div class="unidad-bloque">
+        <div class="unidad-header">
+          <div class="unidad-numero">III</div>
+          <div class="unidad-info">
+            <div class="unidad-etiqueta">// Unidad</div>
+            <div class="unidad-titulo">Unidad 3</div>
+          </div>
+          <div class="unidad-linea"></div>
+          <div class="unidad-diamond" aria-hidden="true"></div>
+        </div>
+        <div class="semanas-grid" id="unidad-3"></div>
+      </div>
+
+      <!-- UNIDAD 4 -->
+      <div class="unidad-bloque">
+        <div class="unidad-header">
+          <div class="unidad-numero">IV</div>
+          <div class="unidad-info">
+            <div class="unidad-etiqueta">// Unidad</div>
+            <div class="unidad-titulo">Unidad 4</div>
+          </div>
+          <div class="unidad-linea"></div>
+          <div class="unidad-diamond" aria-hidden="true"></div>
+        </div>
+        <div class="semanas-grid" id="unidad-4"></div>
+      </div>
+
     </div>
+  </div>
 
-    <!-- UNIDAD 1 -->
-    <div class="unidad mb-4">
-      <h3>Unidad 1</h3>
-      <div class="row" id="unidad-1">
+  <!-- ════════════════════════════════════════
+       PANEL ADMIN FLOTANTE
+  ════════════════════════════════════════ -->
+  <div class="panel-admin-dmc" id="panel-admin">
+
+    <div class="panel-admin-form" id="panel-admin-form">
+      <div class="panel-form-header">
+        <div class="eyebrow">// Acceso Administrador</div>
+        <h4>Nueva Misión</h4>
+      </div>
+      <div class="panel-form-body">
+        <div>
+          <div class="input-dmc-label">Título</div>
+          <input type="text" id="titulo-semana" class="input-dmc" placeholder="Ej: Semana 2">
+        </div>
+        <div>
+          <div class="input-dmc-label">Descripción</div>
+          <input type="text" id="descripcion-semana" class="input-dmc" placeholder="Tema de la semana...">
+        </div>
+        <div>
+          <div class="input-dmc-label">Unidad</div>
+          <select id="unidad-semana" class="select-dmc">
+            <option value="1">Unidad I</option>
+            <option value="2">Unidad II</option>
+            <option value="3">Unidad III</option>
+            <option value="4">Unidad IV</option>
+          </select>
+        </div>
+        <div>
+          <div class="input-dmc-label">Archivo</div>
+          <input type="file" id="archivo-semana" class="file-dmc">
+        </div>
+        <button id="btn-agregar" type="button" class="btn-admin-submit" onclick="agregarSemana()">
+          ⚔ Agregar Semana
+        </button>
       </div>
     </div>
 
-    <!-- UNIDAD 2 -->
-    <div class="unidad mb-4">
-      <h3>Unidad 2</h3>
-      <div class="row" id="unidad-2"></div>
-    </div>
-
-    <!-- UNIDAD 3 -->
-    <div class="unidad mb-4">
-      <h3>Unidad 3</h3>
-      <div class="row" id="unidad-3"></div>
-    </div>
-
-    <!-- UNIDAD 4 -->
-    <div class="unidad mb-4">
-      <h3>Unidad 4</h3>
-      <div class="row" id="unidad-4"></div>
-    </div>
-
-  </section>
-</div>
-
-<!-- PANEL ADMIN -->
-<div id="panel-admin" class="container my-4" style="display:none;">
-  <div class="card p-4 shadow">
-    <h4 class="mb-3">Panel Administrador</h4>
-    <input type="text" id="titulo-semana" class="form-control my-2" placeholder="Ej: Semana 2">
-    <input type="text" id="descripcion-semana" class="form-control my-2" placeholder="Descripción breve">
-    <input type="file" id="archivo-semana" class="form-control my-2">
-    <select id="unidad-semana" class="form-control my-2">
-      <option value="1">Unidad 1</option>
-      <option value="2">Unidad 2</option>
-      <option value="3">Unidad 3</option>
-      <option value="4">Unidad 4</option>
-    </select>
-    <!-- ✅ onclick conectado -->
-    <button id="btn-agregar" type="button" class="btn btn-success mt-2" onclick="agregarSemana()">
-      Agregar Semana
+    <button class="panel-admin-toggle" id="btn-toggle-panel" onclick="togglePanelAdmin()" title="Panel Admin">
+      ⚙
     </button>
   </div>
-</div>
 
-<!-- MODAL EDITAR -->
-<div id="modal-editar" class="modal-custom" style="display:none;">
-  <div class="modal-content">
-    <span class="cerrar" onclick="cerrarEditar()">&times;</span>
-    <h4>Editar Semana</h4>
-    <input type="text" id="edit-titulo" class="form-control my-2" placeholder="Título">
-    <input type="text" id="edit-descripcion" class="form-control my-2" placeholder="Descripción">
-    <input type="file" id="edit-archivo" class="form-control my-2">
-    <button class="btn btn-success mt-2" onclick="guardarEdicion()">Guardar cambios</button>
+  <!-- ════════════════════════════════════════
+       MODAL EDITAR
+  ════════════════════════════════════════ -->
+  <div id="modal-editar" class="modal-dmc-overlay">
+    <div class="modal-dmc-box">
+
+      <div class="modal-dmc-header">
+        <div>
+          <div class="eyebrow">// Modificar registro</div>
+          <h4>Editar Semana</h4>
+        </div>
+        <button class="modal-dmc-cerrar" onclick="cerrarEditar()">✕</button>
+      </div>
+
+      <div class="modal-dmc-body">
+        <div>
+          <div class="input-dmc-label">Título</div>
+          <input type="text" id="edit-titulo" class="input-dmc" placeholder="Título">
+        </div>
+        <div>
+          <div class="input-dmc-label">Descripción</div>
+          <input type="text" id="edit-descripcion" class="input-dmc" placeholder="Descripción">
+        </div>
+        <div>
+          <div class="input-dmc-label">Reemplazar archivo (opcional)</div>
+          <input type="file" id="edit-archivo" class="file-dmc">
+        </div>
+        <button class="btn-admin-submit" onclick="guardarEdicion()">
+          ✔ Guardar Cambios
+        </button>
+      </div>
+
+    </div>
   </div>
-</div>
 
-<!-- Scripts al final, en orden correcto -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script src="js/scripts.js"></script>
+  <!-- ════════════════════════════════════════
+       SCRIPTS
+       Orden: Bootstrap → Supabase → scripts.js → trabajos.js → efectos DMC
+  ════════════════════════════════════════ -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="js/scripts.js"></script>
+  <script src="js/trabajos.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/particles.js"></script>
 
 </body>
 </html>
