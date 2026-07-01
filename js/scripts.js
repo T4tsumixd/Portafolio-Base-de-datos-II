@@ -56,17 +56,25 @@ async function cargarSemanas() {
 
   const { data, error } = await supabase
     .from("semanas")
-    .select("*")
-    .order("titulo", { ascending: true });
+    .select("*"); // Quitamos el .order de Supabase para manejarlo nosotros
 
   if (error) {
     console.error(error);
     return;
   }
 
+  // 🔥 ORDENAR DE MENOR A MAYOR EXTRACCIÓN NUMÉRICA DEL TÍTULO
+  data.sort((a, b) => {
+    const numA = parseInt(a.titulo.match(/\d+/)) || 0;
+    const numB = parseInt(b.titulo.match(/\d+/)) || 0;
+    return numA - numB;
+  });
+
   const usuario = localStorage.getItem("usuarioActivo");
 
+  // El resto de tu código data.forEach((s, index) => { ... }) se queda exactamente igual
   data.forEach((s, index) => {
+    // ... tu lógica actual de renderizado
 
     const contenedor = document.getElementById(`unidad-${s.unidad}`);
 
